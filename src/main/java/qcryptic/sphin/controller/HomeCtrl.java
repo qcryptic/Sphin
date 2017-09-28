@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class HomeCtrl {
 
-    @RequestMapping("/home")
+    @RequestMapping(value = {"/", "/home"})
     public String home(Model model) {
-        model.addAttribute("home", "hello world");
-        return "home";
+        model.addAttribute("hello", "hello world");
+        return "pages/index";
     }
 
 }

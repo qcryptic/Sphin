@@ -1,10 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="header">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="description" content="Sphin: makes requesting new media easy" />
+    <meta name="author" content="qcryptic" />
 
-</body>
+    <!-- Favicon -->
+    <meta name="theme-color" content="#ffffff" />
+    <link rel="apple-touch-icon" sizes="180x180" th:href="@{/img/favicons/apple-touch-icon.png}" />
+    <link rel="icon" type="image/png" sizes="32x32" th:href="@{/img/favicons/favicon-32x32.png}" />
+    <link rel="icon" type="image/png" sizes="16x16" th:href="@{/img/favicons/favicon-16x16.png}" />
+    <link rel="manifest" th:href="@{/img/favicons/manifest.json}" />
+
+    <title>Sphin - Plex Requests</title>
+
+    <!-- Bootstrap, font awesome, custom CSS imports -->
+    <link rel="stylesheet" media="screen" th:href="@{/components/bootstrap/css/bootstrap.min.css}" />
+    <link rel="stylesheet" media="screen" th:href="@{/components/bootstrap/css/bootstrap-xxl.css}" />
+    <link rel="stylesheet" media="screen" th:href="@{/components/font-awesome/css/font-awesome.min.css}" />
+    <link rel="stylesheet" media="screen" th:href="@{/css/base.css}" />
+</head>
+<body></body>
 </html>

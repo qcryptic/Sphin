@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<html xmlns:th="http://www.thymeleaf.org">
+<head></head>
 <body>
-
+    <nav th:fragment="navbar" class="navbar navbar-toggleable-md navbar-dark bg-faded">
+        <a class="navbar-brand navbar-logo" href="/">
+            <img alt="Sphin" th:src="@{/img/home.png}" height="35px"></img>
+        </a>
+    </nav>
 </body>
 </html>
