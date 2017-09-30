@@ -4,10 +4,7 @@
 <body>
 <nav th:replace="fragments/navbar :: navbar"></nav>
 <div class="container-fluid">
-    <div class="col-12 error-container" style="margin-top: 20px">
-        <h1 style="font-size: 4rem;">403</h1>
-        <h4>Forbidden</h4>
-    </div>
+    <p th:text="${info} + '!'"></p>
 </div>
 <footer th:replace="fragments/footer :: footer"></footer>
 </body>
