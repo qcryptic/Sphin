@@ -4,6 +4,18 @@ body {
     color:#eee;
 }
 
+/* Non-mobile specific */
+@media screen and (min-width: 768px) {
+    .nav-link {
+        margin-top: -7px;
+        margin-bottom: -7px;
+        line-height: 35px;
+    }
+    .nav-selected {
+        background: #282828;
+    }
+}
+
 /* Navbar CSS */
 .navbar {
     background: #000;
@@ -15,4 +27,36 @@ body {
     margin-top: -5px;
     margin-left: -10px;
     padding-bottom: 0px;
+}
+.navbar-inverse .navbar-toggler {
+    border-color: rgba(255,255,255,.3);
+    background: #0f0f0f;
+}
+.nav-link {
+    -webkit-transition: background 0.2s ease-out;
+    -moz-transition: background 0.2s ease-out;
+    -o-transition: background 0.2s ease-out;
+    transition: background 0.2s ease-out;
+}
+.nav-selected {
+    color: #f9be03!important;
+}
+.nav-link:hover, .nav-link-bg {
+    background: #282828;
+}
+.settings-dropdown {
+    background: #282828;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+    margin-top: 8px;
+}
+.settings-dropdown-item {
+    background: #282828;
+    color: rgba(255,255,255,.7);
+}
+.settings-dropdown-item:hover {
+    background: #2f2f2f;
+    color: rgba(255,255,255,1);
+}
+.settings-dropdown-divider {
+    background-color: rgba(255,255,255,.5);
 }

@@ -2,10 +2,35 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head></head>
 <body>
-    <nav th:fragment="navbar" class="navbar navbar-toggleable-md navbar-dark bg-faded">
-        <a class="navbar-brand navbar-logo" href="/">
-            <img alt="Sphin" th:src="@{/img/home.png}" height="35px"></img>
+    <nav th:fragment="navbar" class="navbar navbar-toggleable-sm navbar-inverse bg-faded">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand navbar-logo" th:href="@{/home}">
+            <img alt="Sphin" th:src="@{/img/home.png}" height="41px"></img>
         </a>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" th:classappend="${pageName == 'home'} ? 'nav-selected' : ''" th:href="@{/home}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:classappend="${pageName == 'downloads'} ? 'nav-selected' : ''" th:href="@{/downloads}">Downloads</a>
+                </li>
+                <li class="nav-item dropdown" id="settings-button" onmouseenter="settingsMouseOver()" onmouseleave="settingsMouseOut()" onclick="settingsClick()">
+                    <a class="nav-link dropdown-toggle" th:classappend="${pageName == 'settings'} ? 'nav-selected' : ''" th:href="@{/settings}" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-lg fa-cogs"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right settings-dropdown" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item settings-dropdown-item" href="#">Settings</a>
+                        <a class="dropdown-item settings-dropdown-item" href="#">Another action</a>
+                        <div class="dropdown-divider settings-dropdown-divider"></div>
+                        <a class="dropdown-item settings-dropdown-item" href="#">Something else here</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
     </nav>
 </body>
 </html>

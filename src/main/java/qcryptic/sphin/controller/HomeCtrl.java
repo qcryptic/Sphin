@@ -12,8 +12,9 @@ public class HomeCtrl {
 
     @RequestMapping(value = {"/", "/home"})
     public String home(Model model) {
-        model.addAttribute("hello", "hello world");
-        return "pages/index";
+        model.addAttribute("info", "Home Page");
+        model.addAttribute("pageName", "home");
+        return "pages/home";
     }
 
 }
