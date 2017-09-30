@@ -14,7 +14,7 @@ public class SettingsCtrl {
     public String home(Model model) {
         model.addAttribute("info", "Settings Page");
         model.addAttribute("pageName", "settings");
-        return "pages/downloads";
+        return "pages/settings";
     }
 
 }

@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * Created by Kyle on 9/26/2017.
  */
 @Controller
-public class HomeCtrl {
+public class SearchCrtl {
 
-    @RequestMapping(value = {"/", "/home"})
+    @RequestMapping(value = {"/", "/search"})
     public String home(Model model) {
-        model.addAttribute("info", "Home Page");
-        model.addAttribute("pageName", "home");
-        return "pages/home";
+        model.addAttribute("info", "Search Page");
+        model.addAttribute("pageName", "search");
+        return "pages/search";
     }
 
 }
