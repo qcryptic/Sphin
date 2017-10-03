@@ -2,10 +2,44 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header"></head>
 <body>
-<nav th:replace="fragments/navbar :: navbar"></nav>
-<div class="container-fluid">
-    <p th:text="${info} + '!'"></p>
-</div>
-<footer th:replace="fragments/footer :: footer"></footer>
+    <nav th:replace="fragments/navbar :: navbar"></nav>
+    <main>
+    <div class="container-fluid" id="page-content">
+        <div class="col-12 col-lg-10 offset-lg-1 col-xxxl-8 offset-xxxl-2">
+            <div class="row search-container">
+                <!-- Title and Search Bar Container -->
+                <div class="col-md-12" style="text-align: center">
+                    <div>
+                        <p th:text="${searchType == 'movie'} ? 'Movie Search' : 'TV Show Search'" id="search-label"></p>
+                    </div>
+                    <div>
+                        <button type="button" class="btn" th:classappend="${searchType == 'movie'} ? 'type-button-selected' : 'type-button'" id="movie-btn" onclick="mediaSelected(this.id)">Movies</button>
+                        <button type="button" class="btn" th:classappend="${searchType == 'tv'} ? 'type-button-selected' : 'type-button'" id="tv-btn" onclick="mediaSelected(this.id)">TV Shows</button>
+                    </div>
+                    <div class="row col-12 col-md-10 offset-md-1 col-xxxl-8 offset-xxxl-2" id="search-bar-container">
+                        <div class="col-8 col-md-10 col-xxl-11 search-bar-div">
+                            <input class="form-control search-bar" id="search-input" placeholder="Search titles..."></input>
+                        </div>
+                        <div class="col-4 col-md-2 col-xxl-1 search-btn-div">
+                            <button type="button" class="btn search-btn" onclick="getSearchResults()">Search</button>
+                        </div>
+                    </div>
+                    <div id="search-message-placeholder"></div>
+                </div>
+                <!-- Search Results Container -->
+                <div class="col-md-12 results-container" style="display: none;">
+                    <div class="hidden-sm-down">
+                        <div id="search-results-placeholder"></div>
+                    </div>
+                    <div class="hidden-md-up">
+                        <div id="search-results-placeholder-mobile"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </main>
+    <footer th:replace="fragments/footer :: footer"></footer>
+    <script th:inline="javascript" th:src="@{/js/search.js}"></script>
 </body>
 </html>
