@@ -40,6 +40,7 @@ function showResultsContainer() {
 function getSearchResults() {
     hideResultsContainer();
     $('#search-results-placeholder').html('');
+    $('#search-results-placeholder-mobile').html('');
     $('#search-message-placeholder').html('');
     var query = $('#search-input')[0].value;
     if (query.length === 0) {
