@@ -16,6 +16,7 @@ public class SettingsCtrl {
 
     @GetMapping
     public String home(Model model) {
+        model.addAttribute("showNavButtons", true);
         model.addAttribute("info", "Settings Page");
         model.addAttribute("pageName", "settings");
         return "pages/settings";

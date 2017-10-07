@@ -22,6 +22,7 @@ public class SearchCrtl {
 
     @GetMapping
     public String home(Model model) {
+        model.addAttribute("showNavButtons", true);
         model.addAttribute("pageName", "search");
         model.addAttribute("searchType", "movie");
         return "pages/search";
