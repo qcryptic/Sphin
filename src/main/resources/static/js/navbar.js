@@ -20,7 +20,7 @@ function settingsMouseOut() {
 }
 
 function settingsClick() {
-    window.location.href = 'settings';
+    window.location.href = 'settings?type=about';
 }
 
 $('#settings-button').on('hide.bs.dropdown', function () {

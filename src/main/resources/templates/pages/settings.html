@@ -22,19 +22,23 @@
                     <!-- Settings Navigation List -->
                     <div class="col-4 col-xxl-3 col-xxxl-2 results-container settings-container">
                         <ul class="list-group" id="settings-menu">
-                            <li class="list-group-item settings-selected">About</li>
-                            <li class="list-group-item">Network</li>
-                            <li class="list-group-item">Users</li>
+                            <li class="list-group-item" th:classappend="${settingType == 'about'} ? 'settings-selected' : ''" onclick="goToSetting('about')">About</li>
+                            <li class="list-group-item" th:classappend="${settingType == 'network'} ? 'settings-selected' : ''" onclick="goToSetting('network')">Network</li>
+                            <li class="list-group-item" th:classappend="${settingType == 'users'} ? 'settings-selected' : ''" onclick="goToSetting('users')">Users</li>
                         </ul>
                     </div>
                     <!-- Settings Content -->
                     <div class="col-8 col-xxl-9 col-xxxl-10">
                         <div class="settings-item-container">
                             <div style="padding: 10px">
-                                <h3>About Sphin</h3>
-                                <p>Hello this is the about section of the settings</p>
-                                <div th:replace="fragments/settings/about :: about"></div>
-                                <button class="btn type-button" style="margin-top: 20px">Save</button>
+                                <h3 th:text="${settingsTitle}"></h3>
+                                <p th:text="${settingsSubTitle}"></p>
+                                <th:block th:switch="${settingType}">
+                                    <th:block th:case="'about'"><div th:replace="fragments/settings/about :: about"></div></th:block>
+                                    <th:block th:case="'network'"><div th:replace="fragments/settings/network :: network"></div></th:block>
+                                    <th:block th:case="'users'"><div th:replace="fragments/settings/users :: users"></div></th:block>
+                                </th:block>
+                                <button th:if="${settingsShowSave}" class="btn type-button" style="margin-top: 20px">Save</button>
                             </div>
                         </div>
                     </div>
@@ -43,5 +47,6 @@
         </div>
     </main>
 <footer th:replace="fragments/footer :: footer"></footer>
+<script th:inline="javascript" th:src="@{/js/settings.js}"></script>
 </body>
 </html>

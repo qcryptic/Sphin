@@ -7,7 +7,7 @@
 <div class="container-fluid">
     <div class="col-12 error-container" style="margin-top: 20px">
         <h1 style="font-size: 4rem;">400</h1>
-        <h4>Bad Request</h4>
+        <h4>Bad Request<span th:if="${errorText}"> - </span><span th:text="${errorText}"></span></h4>
     </div>
 </div>
 </main>
