@@ -1,6 +1,7 @@
 .settings-header {
     line-height: 62px;
     padding-left: 15px;
+    font-size: 1.65rem;
 }
 
 .restart-button, .shutdown-button {
@@ -13,6 +14,7 @@
 .settings-container {
     margin-top: 0;
     padding: 0;
+    margin-bottom: 15px;
 }
 .settings-item-container {
     margin-right: -15px;
@@ -41,4 +43,30 @@
 }
 .settings-selected {
     color: #f9be2b!important;
+}
+.settings-content {
+    padding: 0;
+}
+.settings-dropdown-button {
+    width: 100%;
+    color: #f9be2b;
+    background: #282828;
+    border: 1px solid rgba(255,255,255,.1);
+}
+.settings-dropdown-button:focus {
+    -webkit-box-shadow: 0 0 0 1px rgba(236, 201, 31, 0.12);
+    box-shadow: 0 0 0 1px rgba(236, 201, 31, 0.12);
+}
+.settings-content-parent {
+    padding: 0;
+}
+.settings-dropdown {
+    width: 100%;
+    background: #282828;
+    color: rgba(220,220,220,0.8);
+    margin-top: 0;
+}
+.settings-save {
+    margin-top: 10px;
+    margin-bottom: 30px
 }

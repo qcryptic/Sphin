@@ -45,6 +45,13 @@ main::-webkit-scrollbar-thumb {
     #search-bar-container {
         margin-left: 8.333333%!important;
     }
+    .settings-content {
+        padding: 10px!important;
+    }
+    .settings-content-parent {
+        padding-left: 15px!important;
+        padding-right: 15px!important;
+    }
 }
 @media (min-width: 992px) {
     #search-label {

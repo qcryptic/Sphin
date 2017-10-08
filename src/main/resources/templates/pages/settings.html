@@ -20,17 +20,27 @@
                 </div>
                 <div class="row" style="margin-left: 0;margin-right: 0;">
                     <!-- Settings Navigation List -->
-                    <div class="col-4 col-xxl-3 col-xxxl-2 results-container settings-container">
-                        <ul class="list-group" id="settings-menu">
+                    <div class="col-12 col-md-4 col-xxl-3 col-xxxl-2 results-container settings-container">
+                        <ul class="list-group hidden-sm-down" id="settings-menu">
                             <li class="list-group-item" th:classappend="${settingType == 'about'} ? 'settings-selected' : ''" onclick="goToSetting('about')">About</li>
                             <li class="list-group-item" th:classappend="${settingType == 'network'} ? 'settings-selected' : ''" onclick="goToSetting('network')">Network</li>
                             <li class="list-group-item" th:classappend="${settingType == 'users'} ? 'settings-selected' : ''" onclick="goToSetting('users')">Users</li>
                         </ul>
+                        <div class="dropdown hidden-md-up">
+                            <button class="btn dropdown-toggle settings-dropdown-button" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span th:text="${settingType}" style="text-transform: capitalize"></span>
+                            </button>
+                            <div class="dropdown-menu settings-dropdown" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" onclick="goToSetting('about')">About</a>
+                                <a class="dropdown-item" onclick="goToSetting('network')">Network</a>
+                                <a class="dropdown-item" onclick="goToSetting('users')">Users</a>
+                            </div>
+                        </div>
                     </div>
                     <!-- Settings Content -->
-                    <div class="col-8 col-xxl-9 col-xxxl-10">
+                    <div class="col-12 col-md-8 col-xxl-9 col-xxxl-10 settings-content-parent">
                         <div class="settings-item-container">
-                            <div style="padding: 10px">
+                            <div class="settings-content">
                                 <h3 th:text="${settingsTitle}"></h3>
                                 <p th:text="${settingsSubTitle}"></p>
                                 <th:block th:switch="${settingType}">
@@ -38,7 +48,7 @@
                                     <th:block th:case="'network'"><div th:replace="fragments/settings/network :: network"></div></th:block>
                                     <th:block th:case="'users'"><div th:replace="fragments/settings/users :: users"></div></th:block>
                                 </th:block>
-                                <button th:if="${settingsShowSave}" class="btn type-button" style="margin-top: 20px">Save</button>
+                                <button th:if="${settingsShowSave}" class="btn type-button settings-save">Save</button>
                             </div>
                         </div>
                     </div>
