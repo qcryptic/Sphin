@@ -13,4 +13,8 @@ public interface IUsersDao {
 
     public boolean checkUid();
 
+    public boolean checkUser(String name);
+
+    public String getPwHash(String name);
+
 }

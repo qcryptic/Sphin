@@ -6,7 +6,21 @@ function register() {
 }
 
 function login() {
-    alert('login');
+    var url = window.location.href;
+    url = url.substring(0,url.lastIndexOf("/"));
+    postRequest(
+        url + "/login",
+        {user:$('#username')[0].value,pass:$('#password')[0].value},
+        function (response) {
+            if (response.result)
+                window.location.replace(url + "/search");
+            else
+                $('#login-text').html(response.message);
+        },
+        function (xhr) {
+            $('#login-text').html("Error logging in: " + xhr.status + " error");
+        }
+    );
 }
 
 function registerAdmin() {
@@ -21,7 +35,8 @@ function registerAdmin() {
         },
         function(xhr) {
             $('#login-text').html("Error creating account: " + xhr.status + " error");
-        });
+        }
+    );
 }
 
 function doLogin() {

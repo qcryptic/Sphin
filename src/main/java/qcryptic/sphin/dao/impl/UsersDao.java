@@ -1,6 +1,7 @@
 package qcryptic.sphin.dao.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import qcryptic.sphin.dao.IUsersDao;
@@ -18,6 +19,8 @@ public class UsersDao implements IUsersDao {
 
     private static final String addAdmin = "insert into users values (users_seq.nextval, ?, ?, 0)";
     private static final String adminCount = "select count(*) from users where rank = 0";
+    private static final String getPwHash = "select password from users where username = ?";
+    private static final String checkUser = "select count(*) from users where username = ?";
 
     //TODO: Fix to use uid
     @Override
@@ -44,4 +47,19 @@ public class UsersDao implements IUsersDao {
         return false;
     }
 
+    @Override
+    public String getPwHash(String name) {
+        try {
+            return jdbcTemplate.queryForObject(getPwHash, String.class, new Object[]{name});
+        }
+        catch (EmptyResultDataAccessException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public boolean checkUser(String name) {
+        return jdbcTemplate.queryForObject(checkUser, Integer.class, new Object[]{name}) > 0;
+    }
 }

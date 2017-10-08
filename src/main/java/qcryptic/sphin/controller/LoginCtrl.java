@@ -57,4 +57,10 @@ public class LoginCtrl {
         return usersSvc.addAdmin(user, pass);
     }
 
+    @ResponseBody
+    @PostMapping("/login")
+    public DbResponseVo doLogin(@RequestParam("user") String user, @RequestParam("pass") String pass) {
+        return usersSvc.login(user, pass);
+    }
+
 }
