@@ -9,14 +9,18 @@
             <h3 th:text="${loginTitle}">Welcome to Sphin Plex Requests</h3>
             <h5 th:text="${loginSubTitle}">Please make an admin account:</h5>
             <br />
-            <input class="form-control search-bar" placeholder="Username" style="border-radius: .25rem; margin-bottom: 2px"></input>
-            <input class="form-control search-bar" placeholder="Password" style="border-radius: .25rem" type="password"></input>
+            <input class="form-control search-bar" required="required" maxlength="30" placeholder="Username" id="username" style="border-radius: .25rem; margin-bottom: 2px"></input>
+            <input class="form-control search-bar" required="required" maxlength="30" placeholder="Password" id="password" style="border-radius: .25rem" type="password"></input>
             <small class="form-text text-muted" th:text="${passwordHint}"></small>
-            <br />
-            <button type="button" class="btn type-button" th:text="${loginButtonText}">Submit</button>
+            <p class="text-danger" id="login-text"></p>
+            <button type="button" class="btn type-button" th:text="${loginButtonText}" onclick="doLogin()">Submit</button>
         </div>
     </div>
     </main>
     <footer th:replace="fragments/footer :: footer"></footer>
+    <script th:inline="javascript" th:src="@{/js/login.js}"></script>
+    <script th:inline="javascript">
+        var loginType =/*[[${loginType}]]*/ 'login';
+    </script>
 </body>
 </html>

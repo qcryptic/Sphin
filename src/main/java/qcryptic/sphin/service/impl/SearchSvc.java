@@ -6,7 +6,7 @@ import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 import qcryptic.sphin.enums.Endpoints;
 import qcryptic.sphin.service.ISearchSvc;
-import qcryptic.sphin.utils.sphinUtils;
+import qcryptic.sphin.utils.SphinUtils;
 import qcryptic.sphin.vo.MovieSearchResultVo;
 import qcryptic.sphin.vo.TvSearchResultVo;
 
@@ -32,7 +32,7 @@ public class SearchSvc implements ISearchSvc {
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestProperty("Accept-Charset", "ISO-8859-1");
             con.setRequestMethod("GET");
-            JSONObject json = sphinUtils.readJson(con.getInputStream());
+            JSONObject json = SphinUtils.readJson(con.getInputStream());
             JSONArray moviesJson = json.getJSONArray("results");
             for (int i = 0; i < moviesJson.length(); i++) {
                 JSONObject movie = moviesJson.getJSONObject(i);

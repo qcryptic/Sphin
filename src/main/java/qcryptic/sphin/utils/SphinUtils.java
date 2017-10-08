@@ -12,7 +12,7 @@ import java.util.Properties;
 /**
  * Created by Kyle on 10/1/2017.
  */
-public class sphinUtils {
+public class SphinUtils {
 
     public static JSONArray readJsonArray(InputStream input) {
         try {
