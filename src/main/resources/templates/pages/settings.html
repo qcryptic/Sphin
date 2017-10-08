@@ -1,13 +1,47 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header"></head>
+<link rel="stylesheet" media="screen" th:href="@{/css/settings.css}" />
 <body>
 <nav th:replace="fragments/navbar :: navbar"></nav>
-<main>
-<div class="container-fluid">
-    <p th:text="${info} + '!'"></p>
-</div>
-</main>
+    <main>
+        <div class="container-fluid" id="page-content">
+            <div class="col-12 col-lg-10 offset-lg-1 col-xl-8 offset-xl-2 col-xxxl-6 offset-xxxl-3">
+                <!-- Settings header -->
+                <div class="results-container settings-header-container">
+                    <div class="pull-left">
+                        <h3 class="settings-header">Settings</h3>
+                    </div>
+                    <div class="pull-right" style="padding: 15px;">
+                        <button class="btn type-button restart-button"><i class="fa fa-refresh"></i><span class="hidden-sm-down"> Restart</span></button>
+                        <button class="btn type-button shutdown-button"><i class="fa fa-power-off"></i><span class="hidden-sm-down"> Shut Down</span></button>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="row" style="margin-left: 0;margin-right: 0;">
+                    <!-- Settings Navigation List -->
+                    <div class="col-4 col-xxl-3 col-xxxl-2 results-container settings-container">
+                        <ul class="list-group" id="settings-menu">
+                            <li class="list-group-item settings-selected">About</li>
+                            <li class="list-group-item">Network</li>
+                            <li class="list-group-item">Users</li>
+                        </ul>
+                    </div>
+                    <!-- Settings Content -->
+                    <div class="col-8 col-xxl-9 col-xxxl-10">
+                        <div class="settings-item-container">
+                            <div style="padding: 10px">
+                                <h3>About Sphin</h3>
+                                <p>Hello this is the about section of the settings</p>
+                                <div th:replace="fragments/settings/about :: about"></div>
+                                <button class="btn type-button" style="margin-top: 20px">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
 <footer th:replace="fragments/footer :: footer"></footer>
 </body>
 </html>

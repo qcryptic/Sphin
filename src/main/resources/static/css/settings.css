@@ -1,0 +1,44 @@
+.settings-header {
+    line-height: 62px;
+    padding-left: 15px;
+}
+
+.restart-button, .shutdown-button {
+    width: auto;
+}
+
+.settings-header-container {
+    margin-bottom: 15px;
+}
+.settings-container {
+    margin-top: 0;
+    padding: 0;
+}
+.settings-item-container {
+    margin-right: -15px;
+}
+#settings-menu {
+    margin-top: 1px;
+    margin-bottom: 1px;
+}
+#settings-menu > .list-group-item {
+    background: #282828;
+    color: rgba(220,220,220,0.8);
+    border: 1px solid rgba(255,255,255,.1);
+    border-top: 0;
+    border-bottom: 2px dotted rgba(100,100,100,.2);
+}
+#settings-menu > .list-group-item:first-child {
+    border-top: 1px;
+}
+#settings-menu > .list-group-item:last-child {
+    border-bottom: 1px;
+}
+#settings-menu > .list-group-item:hover {
+    cursor: pointer;
+    background: #2f2f2f;
+    color: #f5f5f5
+}
+.settings-selected {
+    color: #f9be2b!important;
+}
