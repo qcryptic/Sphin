@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header"></head>
+<body>
+    <nav th:replace="fragments/navbar :: navbar"></nav>
+    <main>
+    <div class="container-fluid">
+        <div class="login-container col-12 col-md-8 col-xl-6 col-xxxl-4 offset-md-2 offset-xl-3 offset-xxxl-4">
+            <h3 th:text="${loginTitle}">Welcome to Sphin Plex Requests</h3>
+            <h5 th:text="${loginSubTitle}">Please make an admin account:</h5>
+            <br />
+            <input class="form-control search-bar" required="required" maxlength="30" placeholder="Username" id="username" style="border-radius: .25rem; margin-bottom: 2px"></input>
+            <input class="form-control search-bar" required="required" maxlength="30" placeholder="Password" id="password" style="border-radius: .25rem" type="password"></input>
+            <small class="form-text text-muted" th:text="${passwordHint}"></small>
+            <p class="text-danger" id="login-text"></p>
+            <button type="button" class="btn type-button" th:text="${loginButtonText}" onclick="doLogin()">Submit</button>
+        </div>
+    </div>
+    </main>
+    <footer th:replace="fragments/footer :: footer"></footer>
+    <script th:inline="javascript" th:src="@{/js/login.js}"></script>
+    <script th:inline="javascript">
+        var loginType =/*[[${loginType}]]*/ 'login';
+    </script>
+</body>
+</html>

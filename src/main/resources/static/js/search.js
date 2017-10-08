@@ -40,6 +40,7 @@ function showResultsContainer() {
 function getSearchResults() {
     hideResultsContainer();
     $('#search-results-placeholder').html('');
+    $('#search-results-placeholder-mobile').html('');
     $('#search-message-placeholder').html('');
     var query = $('#search-input')[0].value;
     if (query.length === 0) {
@@ -48,7 +49,7 @@ function getSearchResults() {
     }
     var url = window.location.href;
     url += (isMovieSelected()) ? "/movie" : "/tv";
-    postReqest(url, query, function (response) { addSearchItems(response); }, function (xhr) { console.log(xhr); });
+    postRequest(url, {'query':query}, function (response) { addSearchItems(response); }, function (xhr) { console.log(xhr); });
 }
 
 function addSearchItems(items) {

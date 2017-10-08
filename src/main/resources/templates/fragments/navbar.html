@@ -10,7 +10,7 @@
         <a class="navbar-brand navbar-logo" th:href="@{/search}">
             <img alt="Sphin" th:src="@{/img/home.png}" height="41px"></img>
         </a>
-        <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+        <div th:if="${showNavButtons}" class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link" th:classappend="${pageName == 'search'} ? 'nav-selected' : ''" th:href="@{/search}">Search</a>

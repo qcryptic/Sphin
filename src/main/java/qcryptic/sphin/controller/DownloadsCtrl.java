@@ -12,6 +12,7 @@ public class DownloadsCtrl {
 
     @RequestMapping(value = {"/downloads"})
     public String home(Model model) {
+        model.addAttribute("showNavButtons", true);
         model.addAttribute("info", "Downloads Page");
         model.addAttribute("pageName", "downloads");
         return "pages/downloads";

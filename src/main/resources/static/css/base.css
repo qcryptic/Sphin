@@ -57,9 +57,17 @@ main::-webkit-scrollbar-thumb {
     .offset-xxxl-2 {
         margin-left: 16.66666667%;
     }
+    .offset-xxxl-4 {
+        margin-left: 33.33333333%;
+    }
     #search-bar-container {
         margin-left: 16.66666667%!important;
     }
+}
+
+.login-container {
+    text-align: center;
+    padding-top: 50px
 }
 
 /* Navbar CSS */
