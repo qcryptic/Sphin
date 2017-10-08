@@ -19,8 +19,8 @@ function settingsMouseOut() {
     }, 600);
 }
 
-function settingsClick() {
-    window.location.href = 'settings?type=about';
+function settingsClick(link) {
+    window.location.href = window.location.origin + link;
 }
 
 $('#settings-button').on('hide.bs.dropdown', function () {
