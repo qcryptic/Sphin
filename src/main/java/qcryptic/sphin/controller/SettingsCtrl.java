@@ -34,7 +34,6 @@ public class SettingsCtrl {
         curModel.addAttribute("pageName", "settings");
         curModel.addAttribute("settingsTitle", type.getTitle());
         curModel.addAttribute("settingsSubTitle", type.getSubtitle());
-        curModel.addAttribute("settingsShowSave", type.isShowSaveBtn());
         curModel.addAttribute("settingType", type.name().toLowerCase());
         return curModel;
     }
@@ -58,7 +57,7 @@ public class SettingsCtrl {
     @PostMapping("/network/update")
     public DbResponseVo updateNetwork(@RequestParam("port") Integer serverPort, @RequestParam("ip") String bindIp, @RequestParam("url") String urlBase) {
         final Pattern ipRegex = Pattern.compile("^(([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.){3}([01]?\\d\\d?|2[0-4]\\d|25[0-5])$");
-        if (serverPort > 65535 || serverPort < 1) 
+        if (serverPort > 65535 || serverPort < 1)
             return new DbResponseVo(false, "Port number must be between 1-65535");
         if (!ipRegex.matcher(bindIp).matches())
             return new DbResponseVo(false, "Bind IP must be a valid IPv4 address");

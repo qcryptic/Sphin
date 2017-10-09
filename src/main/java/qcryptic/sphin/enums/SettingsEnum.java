@@ -5,18 +5,16 @@ package qcryptic.sphin.enums;
  */
 public enum SettingsEnum {
 
-    ABOUT("About Sphin", "Information about this installation", true),
-    NETWORK("Network Settings", "Modify application network settings", true),
-    USERS("Users and Invitations", "Manage user groups", true);
+    ABOUT("About Sphin", "Information about this installation"),
+    NETWORK("Network Settings", "Modify application network settings"),
+    USERS("Users and Invitations", "Manage user groups");
 
     private String title;
     private String subtitle;
-    private boolean showSaveBtn;
 
-    SettingsEnum(String title, String subtitle, boolean showSaveBtn) {
+    SettingsEnum(String title, String subtitle) {
         this.title = title;
         this.subtitle = subtitle;
-        this.showSaveBtn = showSaveBtn;
     }
 
     public String getTitle() {
@@ -27,7 +25,4 @@ public enum SettingsEnum {
         return subtitle;
     }
 
-    public boolean isShowSaveBtn() {
-        return showSaveBtn;
-    }
 }
