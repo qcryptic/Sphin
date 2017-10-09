@@ -3,6 +3,7 @@ package qcryptic.sphin.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.*;
 import qcryptic.sphin.service.IUsersSvc;
 import qcryptic.sphin.vo.DbResponseVo;
@@ -15,6 +16,12 @@ public class LoginCtrl {
 
     @Autowired
     private IUsersSvc usersSvc;
+
+    @ExceptionHandler(MissingServletRequestParameterException.class)
+    public String missingParamterHandler(Exception exception, Model model) {
+        model.addAttribute("errorText", exception.getMessage());
+        return "error/400";
+    }
 
     @GetMapping("/welcome")
     public String welcome(Model model) {
@@ -40,7 +47,8 @@ public class LoginCtrl {
     }
 
     @GetMapping("/register")
-    public String register(@RequestParam(value="key", required = true) String uid, Model model) {
+    public String register(@RequestParam(value="key") String uid, Model model) {
+        //TODO check for invalid or for expired uid
         model.addAttribute("loginTitle", "Register for Sphin");
         model.addAttribute("loginSubTitle", "Choose a name and password:");
         model.addAttribute("loginButtonText", "Submit");

@@ -7,7 +7,7 @@ public enum SettingsEnum {
 
     ABOUT("About Sphin", "Information about this installation", true),
     NETWORK("Network Settings", "Modify application network settings", true),
-    USERS("Users", "Adjust user groups", true);
+    USERS("Users and Invitations", "Manage user groups", true);
 
     private String title;
     private String subtitle;

@@ -17,4 +17,8 @@ public interface IUsersDao {
 
     public String getPwHash(String name);
 
+    public boolean addInvite(String uid, String rank, Integer hours);
+
+    public boolean addRank(String name);
+
 }

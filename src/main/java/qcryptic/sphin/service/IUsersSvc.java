@@ -15,4 +15,8 @@ public interface IUsersSvc {
 
     public boolean checkAdminExists();
 
+    public DbResponseVo generateInviteLink(String rank, Integer hours);
+
+    public boolean addRank(String rank);
+
 }

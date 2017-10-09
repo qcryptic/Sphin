@@ -24,7 +24,7 @@
                         <ul class="list-group hidden-sm-down" id="settings-menu">
                             <li class="list-group-item" th:classappend="${settingType == 'about'} ? 'settings-selected' : ''" onclick="goToSetting('about')">About</li>
                             <li class="list-group-item" th:classappend="${settingType == 'network'} ? 'settings-selected' : ''" onclick="goToSetting('network')">Network</li>
-                            <li class="list-group-item" th:classappend="${settingType == 'users'} ? 'settings-selected' : ''" onclick="goToSetting('users')">Users</li>
+                            <li class="list-group-item" th:classappend="${settingType == 'users'} ? 'settings-selected' : ''" onclick="goToSetting('users')">Users and Invites</li>
                         </ul>
                         <div class="dropdown hidden-md-up">
                             <button class="btn dropdown-toggle settings-dropdown-button" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -33,7 +33,7 @@
                             <div class="dropdown-menu settings-dropdown" aria-labelledby="dropdownMenuButton">
                                 <a class="dropdown-item" onclick="goToSetting('about')">About</a>
                                 <a class="dropdown-item" onclick="goToSetting('network')">Network</a>
-                                <a class="dropdown-item" onclick="goToSetting('users')">Users</a>
+                                <a class="dropdown-item" onclick="goToSetting('users')">Users and Invites</a>
                             </div>
                         </div>
                     </div>
@@ -48,7 +48,7 @@
                                     <th:block th:case="'network'"><div th:replace="fragments/settings/network :: network"></div></th:block>
                                     <th:block th:case="'users'"><div th:replace="fragments/settings/users :: users"></div></th:block>
                                 </th:block>
-                                <button th:if="${settingsShowSave}" class="btn type-button settings-save">Save</button>
+                                <div style="padding-bottom: 30px"></div>
                             </div>
                         </div>
                     </div>

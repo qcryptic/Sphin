@@ -8,6 +8,8 @@ import qcryptic.sphin.dao.IUsersDao;
 import qcryptic.sphin.service.IUsersSvc;
 import qcryptic.sphin.vo.DbResponseVo;
 
+import java.util.UUID;
+
 /**
  * Created by Kyle on 10/7/2017.
  */
@@ -55,5 +57,19 @@ public class UsersSvc implements IUsersSvc {
         if (BCrypt.checkpw(pass, stored_hash))
             return new DbResponseVo(true, "Login successful");
         return new DbResponseVo(false, "Invalid password");
+    }
+
+    @Override
+    public DbResponseVo generateInviteLink(String rank, Integer hours) {
+        String uid = UUID.randomUUID().toString();
+        boolean response = usersDao.addInvite(uid, rank, hours);
+        if (response)
+            return new DbResponseVo(true, uid);
+        return new DbResponseVo(false, "Error generating invite link");
+    }
+
+    @Override
+    public boolean addRank(String rank) {
+        return usersDao.addRank(rank);
     }
 }
