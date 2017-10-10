@@ -13,4 +13,12 @@ public interface IUsersDao {
 
     public boolean checkUid();
 
+    public boolean checkUser(String name);
+
+    public String getPwHash(String name);
+
+    public boolean addInvite(String uid, String rank, Integer hours);
+
+    public boolean addRank(String name);
+
 }

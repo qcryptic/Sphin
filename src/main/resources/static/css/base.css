@@ -45,6 +45,14 @@ main::-webkit-scrollbar-thumb {
     #search-bar-container {
         margin-left: 8.333333%!important;
     }
+    .settings-content {
+        padding: 10px!important;
+        margin-left: 0!important;
+    }
+    .settings-content-parent {
+        padding-left: 15px!important;
+        padding-right: 15px!important;
+    }
 }
 @media (min-width: 992px) {
     #search-label {
@@ -57,6 +65,9 @@ main::-webkit-scrollbar-thumb {
     .offset-xxxl-2 {
         margin-left: 16.66666667%;
     }
+    .offset-xxxl-3 {
+        margin-left: 25%;
+    }
     .offset-xxxl-4 {
         margin-left: 33.33333333%;
     }
@@ -68,6 +79,9 @@ main::-webkit-scrollbar-thumb {
 .login-container {
     text-align: center;
     padding-top: 50px
+}
+.small-text {
+    color: #aaa;
 }
 
 /* Navbar CSS */
@@ -174,6 +188,14 @@ main::-webkit-scrollbar-thumb {
     background: rgba(230,230,230,0.9);
 }
 .search-bar:focus {
+    background-color: rgba(230,230,230,1);
+    border-color: #f9be03;
+}
+.default-input {
+    border-radius: .25rem;
+    background: rgba(230,230,230,0.9);
+}
+.default-input:focus {
     background-color: rgba(230,230,230,1);
     border-color: #f9be03;
 }

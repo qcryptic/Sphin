@@ -18,7 +18,7 @@
                 <li class="nav-item">
                     <a class="nav-link" th:classappend="${pageName == 'downloads'} ? 'nav-selected' : ''" th:href="@{/downloads}">Downloads</a>
                 </li>
-                <li class="nav-item dropdown" id="settings-button" onmouseenter="settingsMouseOver()" onmouseleave="settingsMouseOut()" onclick="settingsClick()">
+                <li class="nav-item dropdown" id="settings-button" onmouseenter="settingsMouseOver()" onmouseleave="settingsMouseOut()" th:onclick="'settingsClick(\''+@{/settings/about}+'\')'">
                     <a class="nav-link dropdown-toggle" th:classappend="${pageName == 'settings'} ? 'nav-selected' : ''" th:href="@{/settings}" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fa fa-lg fa-cogs"></i>
                     </a>

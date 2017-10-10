@@ -30,7 +30,7 @@ public class SearchCrtl {
 
     @ResponseBody
     @PostMapping("/movie")
-    public List<MovieSearchResultVo> searchMovie(@RequestBody String query) {
+    public List<MovieSearchResultVo> searchMovie(@RequestParam("query") String query) {
         return searchSvc.getMovies(query);
     }
 
