@@ -94,6 +94,8 @@ public class SettingsCtrl {
     @GetMapping("/users")
     public String users(Model model) {
         model = defaultModelAdds(model, SettingsEnum.USERS);
+        String[] roles = new String[]{"Admin", "Everyone"};
+        model.addAttribute("userRoles", roles);
         return "pages/settings";
     }
 
