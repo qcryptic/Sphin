@@ -13,6 +13,8 @@ import qcryptic.sphin.utils.SphinUtils;
 import qcryptic.sphin.vo.DbResponseVo;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 /**
@@ -28,6 +30,13 @@ public class SettingsCtrl {
     @Value("${server.port}") private int port;
     @Value("${server.context-path}") private String path;
     @Value("${server.address}") private String address;
+    @Value("${app.java.version}") private String javaVersion;
+    @Value("${app.java.home}") private String javaHome;
+    @Value("${app.os.name}") private String osName;
+    @Value("${app.os.arch}") private String osArch;
+    @Value("${app.os.version}") private String osVersion;
+    @Value("${app.user.dir}") private String installDir;
+    @Value("${app.version}") private String appVersion;
 
     private Model defaultModelAdds(Model curModel, SettingsEnum type) {
         curModel.addAttribute("showNavButtons", true);
@@ -41,6 +50,15 @@ public class SettingsCtrl {
     @GetMapping("/about")
     public String about(Model model) {
         model = defaultModelAdds(model, SettingsEnum.ABOUT);
+        Map<String,String> aboutValues = new LinkedHashMap<>();
+        aboutValues.put("Sphin Version", appVersion);
+        aboutValues.put("Installation Directory", installDir);
+        aboutValues.put("Java Version", javaVersion);
+        aboutValues.put("Java Location", javaHome);
+        aboutValues.put("OS Name", osName);
+        aboutValues.put("OS Architecture", osArch);
+        aboutValues.put("OS Version", osVersion);
+        model.addAttribute("aboutValues", aboutValues);
         return "pages/settings";
     }
 

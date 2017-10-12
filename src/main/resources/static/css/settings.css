@@ -87,3 +87,21 @@
     margin-top: -5px;
     margin-bottom: -5px;
 }
+.borderless td, .borderless th {
+    border: none!important;
+}
+/* Scrollbar */
+.borderless::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 3px rgba(0,0,0,0.3);
+    border-radius: 5px;
+    background-color: #282828;
+}
+.borderless::-webkit-scrollbar {
+    width: 6px;
+    background-color: #1f1f1f;
+}
+.borderless::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    -webkit-box-shadow: inset 0 0 3px rgba(0,0,0,.3);
+    background-color: #414141;
+}

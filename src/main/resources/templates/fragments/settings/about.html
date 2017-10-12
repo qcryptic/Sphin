@@ -3,7 +3,22 @@
 <head></head>
 <body>
 <div th:fragment="about">
-    <p>About content</p>
+    <table class="table table-responsive borderless">
+        <thead>
+        <tr>
+            <th>System Information</th>
+            <th>Value</th>
+        </tr>
+        </thead>
+        <tbody>
+        <th:block th:each="aboutValue : ${aboutValues}">
+            <tr>
+                <td th:text="${aboutValue.key}"></td>
+                <td th:text="${aboutValue.value}"></td>
+            </tr>
+        </th:block>
+        </tbody>
+    </table>
 </div>
 </body>
 </html>
