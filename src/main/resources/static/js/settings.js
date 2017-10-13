@@ -3,6 +3,39 @@
  */
 
 /* GENERAL */
+var alertTimeout;
+function settingsAlertSuccess(msg, time) {
+    $('#settings-alert')
+        .html('<i class="fa fa-check"></i> '+msg)
+        .removeClass('alert-warning').removeClass('alert-danger').addClass('alert-success')
+        .slideDown();
+    setAlertTimeout(time);
+}
+function settingsAlertWarning(msg, time) {
+    $('#settings-alert')
+        .html('<i class="fa fa-exclamation-triangle"></i> '+msg)
+        .removeClass('alert-success').removeClass('alert-danger').addClass('alert-warning')
+        .slideDown();
+    setAlertTimeout(time);
+}
+function settingsAlertDanger(msg, time) {
+    $('#settings-alert')
+        .html('<i class="fa fa-times"></i> '+msg)
+        .removeClass('alert-warning').removeClass('alert-success').addClass('alert-danger')
+        .slideDown();
+    setAlertTimeout(time);
+}
+function setAlertTimeout(time) {
+    if (time === undefined)
+        time = 5000;
+    clearTimeout(alertTimeout);
+    alertTimeout = setTimeout(function () {
+        $('#settings-alert').slideUp();
+    },time);
+}
+function changeAlertText(msg) {
+    $('#settings-alert').html(msg);
+}
 function goToSetting(type) {
     window.location.href = type;
 }
@@ -19,6 +52,20 @@ function setSaveBtnMsg(msg, type) {
 }
 function clearSaveBtnMsg() {
     $('#save-btn-msg').html('');
+}
+function restartApp() {
+    var url = window.location.href.substring(0,window.location.href.lastIndexOf("/"));
+    postRequest(url+"/restart", {}, function () {}, function (xhr) {settingsAlertDanger('Error restarting sphin: '+xhr.status+' error');});
+    settingsAlertWarning('Restarting Sphin in 5 seconds', 10000);
+    var timeleft = 5;
+    var downloadTimer = setInterval(function(){
+        timeleft--;
+        changeAlertText('<i class="fa fa-exclamation-triangle"></i> Restarting Sphin in '+timeleft+' seconds');
+        if(timeleft <= 0) {
+            clearInterval(downloadTimer);
+            location.reload();
+        }
+    },1000);
 }
 
 /* NETWORK */

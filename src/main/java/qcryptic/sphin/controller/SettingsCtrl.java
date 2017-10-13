@@ -1,7 +1,9 @@
 package qcryptic.sphin.controller;
 
+import org.apache.commons.lang3.SystemUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.restart.RestartEndpoint;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.MissingServletRequestParameterException;
@@ -27,15 +29,12 @@ public class SettingsCtrl {
     @Autowired
     private IUsersSvc usersSvc;
 
+    @Autowired
+    private RestartEndpoint restartEndpoint;
+
     @Value("${server.port}") private int port;
     @Value("${server.context-path}") private String path;
     @Value("${server.address}") private String address;
-    @Value("${app.java.version}") private String javaVersion;
-    @Value("${app.java.home}") private String javaHome;
-    @Value("${app.os.name}") private String osName;
-    @Value("${app.os.arch}") private String osArch;
-    @Value("${app.os.version}") private String osVersion;
-    @Value("${app.user.dir}") private String installDir;
     @Value("${app.version}") private String appVersion;
 
     private Model defaultModelAdds(Model curModel, SettingsEnum type) {
@@ -52,12 +51,12 @@ public class SettingsCtrl {
         model = defaultModelAdds(model, SettingsEnum.ABOUT);
         Map<String,String> aboutValues = new LinkedHashMap<>();
         aboutValues.put("Sphin Version", appVersion);
-        aboutValues.put("Installation Directory", installDir);
-        aboutValues.put("Java Version", javaVersion);
-        aboutValues.put("Java Location", javaHome);
-        aboutValues.put("OS Name", osName);
-        aboutValues.put("OS Architecture", osArch);
-        aboutValues.put("OS Version", osVersion);
+        aboutValues.put("Installation Directory", SystemUtils.USER_DIR);
+        aboutValues.put("Java Version", SystemUtils.JAVA_VERSION);
+        aboutValues.put("Java Location", SystemUtils.JAVA_HOME);
+        aboutValues.put("OS Name", SystemUtils.OS_NAME);
+        aboutValues.put("OS Architecture", SystemUtils.OS_ARCH);
+        aboutValues.put("OS Version", SystemUtils.OS_VERSION);
         model.addAttribute("aboutValues", aboutValues);
         return "pages/settings";
     }
@@ -81,7 +80,7 @@ public class SettingsCtrl {
             return new DbResponseVo(false, "Bind IP must be a valid IPv4 address");
         if (!urlBase.startsWith("/"))
             return new DbResponseVo(false, "URL Base must start with '/'");
-        if (!urlBase.matches("/[a-zA-Z0-9/]*"))
+        if (!urlBase.matches("/[a-zA-Z0-9]*"))
             return new DbResponseVo(false, "Invalid URL Base, alphanumeric and forward slashes only");
         HashMap<String,String> newSettings = new HashMap<>();
         newSettings.put("server.port", serverPort.toString());
@@ -103,6 +102,14 @@ public class SettingsCtrl {
     @PostMapping("/users/makeInvite")
     public DbResponseVo makeInvite(@RequestParam("rank") String rankName) {
         return usersSvc.generateInviteLink(rankName, 24);
+    }
+
+    @ResponseBody
+    @PostMapping("/restart")
+    public void restartApp() {
+        Thread restartThread = new Thread(() -> restartEndpoint.restart());
+        restartThread.setDaemon(false);
+        restartThread.start();
     }
 
 }
