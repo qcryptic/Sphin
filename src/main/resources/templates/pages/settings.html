@@ -24,6 +24,7 @@
                         <ul class="list-group hidden-sm-down" id="settings-menu">
                             <li class="list-group-item" th:classappend="${settingType == 'about'} ? 'settings-selected' : ''" onclick="goToSetting('about')">About</li>
                             <li class="list-group-item" th:classappend="${settingType == 'network'} ? 'settings-selected' : ''" onclick="goToSetting('network')">Network</li>
+                            <li class="list-group-item" th:classappend="${settingType == 'connections'} ? 'settings-selected' : ''" onclick="goToSetting('connections')">Connections</li>
                             <li class="list-group-item" th:classappend="${settingType == 'users'} ? 'settings-selected' : ''" onclick="goToSetting('users')">Users and Invites</li>
                         </ul>
                         <div class="dropdown hidden-md-up">
@@ -33,6 +34,7 @@
                             <div class="dropdown-menu settings-dropdown" aria-labelledby="dropdownMenuButton">
                                 <a class="dropdown-item" onclick="goToSetting('about')">About</a>
                                 <a class="dropdown-item" onclick="goToSetting('network')">Network</a>
+                                <a class="dropdown-item" onclick="goToSetting('connections')">Connections</a>
                                 <a class="dropdown-item" onclick="goToSetting('users')">Users and Invites</a>
                             </div>
                         </div>
@@ -46,6 +48,7 @@
                                 <th:block th:switch="${settingType}">
                                     <th:block th:case="'about'"><div th:replace="fragments/settings/about :: about"></div></th:block>
                                     <th:block th:case="'network'"><div th:replace="fragments/settings/network :: network"></div></th:block>
+                                    <th:block th:case="'connections'"><div th:replace="fragments/settings/connections :: connections"></div></th:block>
                                     <th:block th:case="'users'"><div th:replace="fragments/settings/users :: users"></div></th:block>
                                 </th:block>
                                 <div style="padding-bottom: 30px"></div>
