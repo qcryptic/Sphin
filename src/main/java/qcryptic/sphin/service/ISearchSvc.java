@@ -14,12 +14,12 @@ public interface ISearchSvc {
      *
      * @return
      */
-    public List<MovieSearchResultVo> getMovies(String query);
+    List<MovieSearchResultVo> getMovies(String query);
 
     /**
      *
      * @return
      */
-    public List<TvSearchResultVo> getTv(String query);
+    List<TvSearchResultVo> getTv(String query);
 
 }

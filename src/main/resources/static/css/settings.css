@@ -115,3 +115,19 @@
     color: #c94442;
     border-color: #a94442;
 }
+.conn-sub-header {
+    padding-bottom: 10px;
+    margin-bottom: -10px;
+}
+.settings-select-menu {
+    background: #ccc;
+    padding: .25rem 0;
+}
+.settings-select-item:hover {
+    background: rgba(249, 190, 43, 0.18);
+    cursor: pointer;
+}
+.test-conn-btn {
+    width: auto;
+    margin-top: -10px;
+}

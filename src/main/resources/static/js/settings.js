@@ -36,8 +36,11 @@ function setAlertTimeout(time) {
 function changeAlertText(msg) {
     $('#settings-alert').html(msg);
 }
-function goToSetting(type) {
+function goToSetting(type, item) {
+    $('body').addClass('load');
     window.location.href = type;
+
+
 }
 function setSaveBtnMsg(msg, type) {
     var item = $('#save-btn-msg');
@@ -72,13 +75,18 @@ function restartApp() {
 function updateNetwork() {
     postRequest(window.location.href+"/update", {port:$('#network-port')[0].value, ip:$('#network-ip')[0].value, url:$('#network-base')[0].value},
         function (response) {
-            if (response.result)
-                setSaveBtnMsg(response.message, 'success');
-            else
-                setSaveBtnMsg(response.message, 'danger');
+            if (response.result) {
+                doSuccessButton('network-save', true, 'Saved');
+                showAlert('network-alert', 'success', response.message, true);
+            }
+            else {
+                doErrorButton('network-save', true, 'Error Saving');
+                showAlert('network-alert', 'danger', response.message, true);
+            }
         },
         function (xhr) {
-            setSaveBtnMsg('Error updating - '+xhr.status+' error', 'danger');
+            doErrorButton('network-save', true, 'Error Saving');
+            showAlert('network-alert', 'danger', 'Error updating - '+xhr.status+' error', true);
         }
     );
 }
@@ -116,6 +124,69 @@ function makeInvite() {
                 alert(response.message);
         }, function (xhr) {
 
+        }
+    );
+}
+
+/* Connections */
+function showMediaManager(type, selection, collapseId) {
+    (type === 'movie') ? $('#dropdownMenuMovieManager').html(selection) : $('#dropdownMenuTvManager').html(selection);
+    $('#'+collapseId).collapse('show');
+}
+function resetConnectionItems(id) {
+    doNormalButton(id+'-save', 'Save');
+    doNormalButton(id+'-test', 'Test Connection');
+    hideAlert(id+'-alert');
+}
+function updateDarr(type, name) {
+    resetConnectionItems(type+'-man');
+    var btn = type+'-man-save';
+    postRequest(
+        window.location.href+"/update-"+name,
+        {url:$('#'+name+'-url').val(),api:$('#'+name+'-api').val(),pathId:$('#'+name+'-path').val(),profileId:$('#'+name+'-profile').val()},
+        function (response) {
+            if (response.result)
+                doSuccessButton(btn, false, 'Saved');
+            else {
+                doErrorButton(btn, true, 'Save Failed');
+                showAlert(type+'-man-alert', 'danger', response.message, true);
+            }
+        },
+        function (xhr) {
+            console.log(xhr);
+            doErrorButton(btn, true, 'Save Failed');
+        }
+    )
+}
+function testDarr(type, name) {
+    resetConnectionItems(type+'-man');
+    var btn = type+'-man-test';
+    var curProfile = parseInt($('#'+name+'-profile').val(), 10);
+    var curPath = parseInt($('#'+name+'-path').val(), 10);
+    doLoadButton(btn);
+    postRequest(window.location.href+"/testDarr", {url:$('#'+name+'-url').val(),api:$('#'+name+'-api').val()},
+        function (response) {
+            if (response.result) {
+                $('#'+name+'-profile').html('');
+                $('#'+name+'-path').html('');
+                doSuccessButton(btn, true, 'Connected!');
+                var json = JSON.parse(response.message);
+                json.profiles.forEach(function(obj) { appendOption(name+'-profile', obj.id, obj.name, false) });
+                json.paths.forEach(function(obj) { appendOption(name+'-path', obj.id, obj.path, false) });
+                if (curProfile > 0)
+                    $('#'+name+'-profile').val(curProfile);
+                if (curPath > 0)
+                    $('#'+name+'-path').val(curPath);
+            }
+            else {
+                doErrorButton(btn, true, 'Connection Failed');
+                showAlert(type+'-man-alert', 'danger', response.message, true);
+            }
+        },
+        function (xhr) {
+            console.log(xhr);
+            doErrorButton(btn, true, 'Connection Failed');
+            showAlert(type+'-man-alert', 'danger', 'Http error code: ' + xhr.status, true);
         }
     );
 }

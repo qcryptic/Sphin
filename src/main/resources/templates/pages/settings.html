@@ -20,12 +20,12 @@
                 <div class="alert" id="settings-alert" style="opacity: 0.8; display: none;"></div>
                 <div class="row" style="margin-left: 0;margin-right: 0;">
                     <!-- Settings Navigation List -->
-                    <div class="col-12 col-md-4 col-xxl-3 col-xxxl-2 results-container settings-container">
+                    <div class="col-12 col-md-4 col-xxl-3 col-xxxl-2 results-container settings-container" id="settingsNav">
                         <ul class="list-group hidden-sm-down" id="settings-menu">
-                            <li class="list-group-item" th:classappend="${settingType == 'about'} ? 'settings-selected' : ''" onclick="goToSetting('about')">About</li>
-                            <li class="list-group-item" th:classappend="${settingType == 'network'} ? 'settings-selected' : ''" onclick="goToSetting('network')">Network</li>
-                            <li class="list-group-item" th:classappend="${settingType == 'connections'} ? 'settings-selected' : ''" onclick="goToSetting('connections')">Connections</li>
-                            <li class="list-group-item" th:classappend="${settingType == 'users'} ? 'settings-selected' : ''" onclick="goToSetting('users')">Users and Invites</li>
+                            <li class="list-group-item" th:classappend="${settingType == 'about'} ? 'settings-selected' : ''" onclick="goToSetting('about', this)">About</li>
+                            <li class="list-group-item" th:classappend="${settingType == 'network'} ? 'settings-selected' : ''" onclick="goToSetting('network', this)">Network</li>
+                            <li class="list-group-item" th:classappend="${settingType == 'connections'} ? 'settings-selected' : ''" onclick="goToSetting('connections', this)">Connections</li>
+                            <li class="list-group-item" th:classappend="${settingType == 'users'} ? 'settings-selected' : ''" onclick="goToSetting('users', this)">Users and Invites</li>
                         </ul>
                         <div class="dropdown hidden-md-up">
                             <button class="btn dropdown-toggle settings-dropdown-button" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

@@ -7,7 +7,10 @@ public enum Endpoints {
 
     TMDB_GENRES("https://api.themoviedb.org/3/genre/movie/list?api_key=<<key>>&language=en-US"),
     TMDB_SEARCH("https://api.themoviedb.org/3/search/movie?api_key=<<key>>&language=en-US&include_adult=false&query="),
-    TMDB_PICTURES("https://image.tmdb.org/t/p/w185");
+    TMDB_PICTURES("https://image.tmdb.org/t/p/w185"),
+
+    DARR_ROOTFOLDER("/api/rootfolder?APIKEY=<<key>>"),
+    DARR_PROFILES("/api/profile?APIKEY=<<key>>");
 
     private String url;
 
