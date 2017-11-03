@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head></head>
+<body>
+<div th:fragment="connections">
+    <hr style="border-top: 1px solid rgba(100,100,100,.75);" />
+
+    <!-- MOVIE MANAGERS -->
+    <h4 class="conn-sub-header">Movie Manager</h4>
+    <small class="small-text">Required to automatically download Movies</small>
+    <div class="form-group row" style="margin-top: 10px">
+        <label class="col-4 col-lg-3 col-xxxl-1 col-form-label">Movie Manager</label>
+        <div class="col-8 col-lg-9 col-xxxl-11">
+            <div class="dropdown">
+                <button class="btn default-input dropdown-toggle cap" th:text="${movieManager}" type="button" id="dropdownMenuMovieManager" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="resetConnectionItems('movie-man')"></button>
+                <div class="dropdown-menu settings-select-menu" aria-labelledby="dropdownMenuMovieManager">
+                    <button class="dropdown-item settings-select-item" type="button" value="radarr" onclick="showMediaManager('movie', 'Radarr', 'radarrCollapse')">Radarr</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- RADARR -->
+    <div id="radarrCollapse" class="collapse" th:classappend="${movieManager == 'radarr'} ? 'show' : ''">
+        <div class="form-group row">
+            <label for="radarr-url" class="col-4 col-lg-3 col-xxxl-1 col-form-label">Radarr URL</label>
+            <div class="col-8 col-lg-9 col-xxxl-11">
+                <input class="form-control default-input" spellcheck="false" th:value="${radarr.url}" type="search" id="radarr-url" onfocus="resetConnectionItems('movie-man')" />
+                <small class="small-text">URL or IP - include any URL base, port, and http(s)://</small>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="radarr-api" class="col-4 col-lg-3 col-xxxl-1 col-form-label">Radarr API Key</label>
+            <div class="col-8 col-lg-9 col-xxxl-11">
+                <input class="form-control default-input" spellcheck="false" th:value="${radarr.api}" type="search" id="radarr-api" onfocus="resetConnectionItems('movie-man')" />
+                <small class="small-text">Found in Radarr general settings</small>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="radarr-profile" class="col-4 col-lg-3 col-xxxl-1 col-form-label">Default Profile</label>
+            <div class="col-8 col-lg-9 col-xxxl-11">
+                <select class="form-control default-input" id="radarr-profile" onfocus="resetConnectionItems('movie-man')">
+                    <option th:each="profile : ${radarr.profiles}" th:value="${profile.key}" th:text="${profile.value}" th:selected="${profile.key == radarr.profileId}"></option>
+                </select>
+                <small class="small-text">Choose default quality profile (test connection first)</small>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="radarr-path" class="col-4 col-lg-3 col-xxxl-1 col-form-label">Default Path</label>
+            <div class="col-8 col-lg-9 col-xxxl-11">
+                <select class="form-control default-input" id="radarr-path" onfocus="resetConnectionItems('movie-man')">
+                    <option th:each="path : ${radarr.paths}" th:value="${path.key}" th:text="${path.value}" th:selected="${path.key == radarr.pathId}"></option>
+                </select>
+                <small class="small-text">Choose default download path (test connection first)</small>
+            </div>
+        </div>
+        <div class="alert alert-dismissible" id="movie-man-alert" style="opacity: 0.8; display: none;"></div>
+        <div class="form-group row" style="margin-top: 10px">
+            <div class="col-12">
+                <button id="movie-man-save" class="btn type-button small-type-button pull-left" style="margin-right: 10px" onclick="updateDarr('movie','radarr')">Save</button>
+                <button id="movie-man-test" class="btn type-button small-type-button pull-right" onclick="testDarr('movie','radarr')">Test Connection</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- COUCH POTATO -->
+
+    <!-- TV MANGERS -->
+    <hr style="border-top: 1px solid rgba(100,100,100,.75);" />
+    <h4 class="conn-sub-header">TV Show Manager</h4>
+    <small class="small-text">Required to automatically download TV Shows</small>
+    <div class="form-group row" style="margin-top: 10px">
+        <label class="col-4 col-lg-3 col-xxxl-1 col-form-label">TV Manager</label>
+        <div class="col-8 col-lg-9 col-xxxl-11">
+            <div class="dropdown">
+                <button class="btn default-input dropdown-toggle cap" th:text="${tvManager}" type="button" id="dropdownMenuTvManager" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="resetConnectionItems('tv-man')"></button>
+                <div class="dropdown-menu settings-select-menu" aria-labelledby="dropdownMenuTvManager">
+                    <button class="dropdown-item settings-select-item" type="button" value="sonarr" onclick="showMediaManager('tv', 'Sonarr', 'sonarrCollapse')">Sonarr</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SONARR -->
+    <div id="sonarrCollapse" class="collapse" th:classappend="${tvManager == 'sonarr'} ? 'show' : ''">
+        <div class="form-group row">
+            <label for="sonarr-url" class="col-4 col-lg-3 col-xxxl-1 col-form-label">Sonarr URL</label>
+            <div class="col-8 col-lg-9 col-xxxl-11">
+                <input class="form-control default-input" spellcheck="false" th:value="${sonarr.url}" type="search" id="sonarr-url" onfocus="resetConnectionItems('tv-man')" />
+                <small class="small-text">URL or IP - include any URL base, port, and http(s)://</small>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="sonarr-api" class="col-4 col-lg-3 col-xxxl-1 col-form-label">Sonarr API Key</label>
+            <div class="col-8 col-lg-9 col-xxxl-11">
+                <input class="form-control default-input" spellcheck="false" th:value="${sonarr.api}" type="search" id="sonarr-api" onfocus="resetConnectionItems('tv-man')" />
+                <small class="small-text">Found in Sonarr general settings</small>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="sonarr-profile" class="col-4 col-lg-3 col-xxxl-1 col-form-label">Default Profile</label>
+            <div class="col-8 col-lg-9 col-xxxl-11">
+                <select class="form-control default-input" id="sonarr-profile" onfocus="resetConnectionItems('tv-man')">
+                    <option th:each="profile : ${sonarr.profiles}" th:value="${profile.key}" th:text="${profile.value}" th:selected="${profile.key == sonarr.profileId}"></option>
+                </select>
+                <small class="small-text">Choose default quality profile (test connection first)</small>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="sonarr-path" class="col-4 col-lg-3 col-xxxl-1 col-form-label">Default Path</label>
+            <div class="col-8 col-lg-9 col-xxxl-11">
+                <select class="form-control default-input" id="sonarr-path" onfocus="resetConnectionItems('tv-man')">
+                    <option th:each="path : ${sonarr.paths}" th:value="${path.key}" th:text="${path.value}" th:selected="${path.key == sonarr.pathId}"></option>
+                </select>
+                <small class="small-text">Choose default download path (test connection first)</small>
+            </div>
+        </div>
+        <div class="alert alert-dismissible" id="tv-man-alert" style="opacity: 0.8; display: none;"></div>
+        <div class="form-group row" style="margin-top: 10px">
+            <div class="col-12">
+                <button id="tv-man-save" class="btn type-button small-type-button pull-left" onclick="updateDarr('tv','sonarr')" style="margin-right: 10px">Save</button>
+                <button id="tv-man-test" class="btn type-button small-type-button pull-right" onclick="testDarr('tv','sonarr')">Test Connection</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SICK BEARD -->
+
+    <!-- DOWNLOADERS -->
+    <hr style="border-top: 1px solid rgba(100,100,100,.75);" />
+    <h4 class="conn-sub-header">Downloader</h4>
+    <small class="small-text">Required to view downloads</small>
+    <div class="form-group row" style="margin-top: 10px">
+        <label class="col-4 col-lg-3 col-xxxl-1 col-form-label">Downloader</label>
+        <div class="col-8 col-lg-9 col-xxxl-11">
+            <div class="dropdown">
+                <button class="btn default-input dropdown-toggle cap" th:text="${downloader}" type="button" id="dropdownDownloader" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Select...
+                </button>
+                <div class="dropdown-menu settings-select-menu" aria-labelledby="dropdownMenuDownloader">
+                    <button class="dropdown-item settings-select-item" value="nzbget" type="button">NzbGet</button>
+                    <button class="dropdown-item settings-select-item" value="sabnzbd" type="button">SABnzbd</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- NzbGet -->
+
+    <!-- SABnzbd -->
+</div>
+</body>
+</html>

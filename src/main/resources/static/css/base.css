@@ -138,6 +138,12 @@ main::-webkit-scrollbar-thumb {
     font-size: 1.3rem;
     color: #d87474;
 }
+.cap {
+    text-transform: capitalize;
+}
+.load {
+    cursor: wait!important;
+}
 .search-container {
     margin-top: 20px;
 }
@@ -148,6 +154,20 @@ main::-webkit-scrollbar-thumb {
     background-color: transparent;
     color: #ccc;
     cursor: pointer;
+}
+.green-button {
+    border-color: #5cb85c;
+    color: #5cb85c;
+}
+.green-button:hover {
+    border-color: #5cb85c!important;
+}
+.red-button {
+    border-color: #d9534f;
+    color: #d9534f;
+}
+.red-button:hover {
+    border-color: #d9534f!important;
 }
 .type-button:hover {
     opacity: 1;
@@ -193,6 +213,7 @@ main::-webkit-scrollbar-thumb {
 }
 .default-input {
     border-radius: .25rem;
+    line-height: 1.1;
     background: rgba(230,230,230,0.9);
 }
 .default-input:focus {

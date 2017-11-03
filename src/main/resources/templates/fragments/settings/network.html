@@ -6,25 +6,26 @@
     <div class="form-group row">
         <label for="network-ip" class="col-4 col-lg-3 col-xxxl-1 col-form-label">Bind IP</label>
         <div class="col-8 col-lg-9 col-xxxl-11">
-            <input class="form-control default-input" th:value="${address}" type="text" id="network-ip" onfocus="clearSaveBtnMsg()" />
+            <input class="form-control default-input" th:value="${address}" type="text" id="network-ip" onfocus="resetSaveAndAlert('network', 'Save')" />
             <small class="small-text">Default: 0.0.0.0 - listens on all IPs</small>
         </div>
     </div>
     <div class="form-group row">
         <label for="network-port" class="col-4 col-lg-3 col-xxxl-1 col-form-label">Server Port</label>
         <div class="col-8 col-lg-9 col-xxxl-11">
-            <input class="form-control default-input" th:value="${port}" type="search" id="network-port" onfocus="clearSaveBtnMsg()" />
+            <input class="form-control default-input" th:value="${port}" type="search" id="network-port" onfocus="resetSaveAndAlert('network', 'Save')" />
             <small class="small-text">Recommended between 8000-9999</small>
         </div>
     </div>
     <div class="form-group row">
         <label for="network-base" class="col-4 col-lg-3 col-xxxl-1 col-form-label">URL Base</label>
         <div class="col-8 col-lg-9 col-xxxl-11">
-            <input class="form-control default-input" th:value="${baseUrl}" type="email" id="network-base" onfocus="clearSaveBtnMsg()" />
+            <input class="form-control default-input" th:value="${baseUrl}" type="email" id="network-base" onfocus="resetSaveAndAlert('network', 'Save')" />
             <small class="small-text">Generally used for reverse proxy</small>
         </div>
     </div>
-    <button class="btn type-button settings-save" onclick="updateNetwork()">Save</button><br />
+    <div class="alert alert-dismissible" id="network-alert" style="opacity: 0.8; display: none;"></div>
+    <button class="btn type-button settings-save" id="network-save" onclick="updateNetwork()">Save</button><br />
     <small class="text-danger" id="save-btn-msg"></small>
 </div>
 </body>

@@ -3,22 +3,27 @@
 <head></head>
 <body>
 <div th:fragment="users">
-    <div id="accordion" role="tablist" aria-multiselectable="true">
-        <div class="card-header users-card-header" role="tab" id="headingOne">
+    <div id="accordion">
+        <th:block th:each="role : ${userRoles}">
+        <div class="card-header users-card-header" role="tab" th:id="'group'+${role}">
             <h5 class="mb-0 pull-left">
-                <a class="users-card-title" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                    Admin
+                <a class="users-card-title" data-toggle="collapse" th:href="'#collapse'+${role}" aria-expanded="true" th:inline="text" th:onclick="'updateGroupCaret(\'caret'+${role}+'\')'">
+                    <i class="fa fa-caret-right" th:id="'caret'+${role}"></i> [[${role}]]
                 </a>
             </h5>
-            <button class="btn type-button user-invite-button pull-right" onclick="makeInvite()"><i class="fa fa-plus"></i> Invite Link</button>
+            <button class="btn type-button small-type-button pull-right group-delete"><i class="fa fa-trash"></i></button>
+            <button class="btn type-button small-type-button pull-right" onclick="makeInvite()"><i class="fa fa-plus"></i> Invite</button>
             <div class="clearfix"></div>
         </div>
-        <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
-            <div class="card-block">
+        <div th:id="'collapse'+${role}" class="collapse">
+            <div class="card-block" style="background: #222222">
                 Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
             </div>
         </div>
+        </th:block>
     </div>
+    <br />
+    <button class="btn type-button small-type-button" style="width: auto"><i class="fa fa-plus"></i> Create New Group</button>
 </div>
 </body>
 </html>

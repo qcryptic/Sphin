@@ -7,16 +7,16 @@ import qcryptic.sphin.vo.DbResponseVo;
  */
 public interface IUsersSvc {
 
-    public DbResponseVo addAdmin(String user, String pass);
+    DbResponseVo addAdmin(String user, String pass);
 
-    public DbResponseVo login(String user, String pass);
+    DbResponseVo login(String user, String pass);
 
-    public boolean addUser(String user, String name, Long uid);
+    boolean addUser(String user, String name, Long uid);
 
-    public boolean checkAdminExists();
+    boolean checkAdminExists();
 
-    public DbResponseVo generateInviteLink(String rank, Integer hours);
+    DbResponseVo generateInviteLink(String rank, Integer hours);
 
-    public boolean addRank(String rank);
+    boolean addRank(String rank);
 
 }
