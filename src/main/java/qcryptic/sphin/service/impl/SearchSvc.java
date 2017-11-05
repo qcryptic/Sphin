@@ -1,5 +1,6 @@
 package qcryptic.sphin.service.impl;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -21,6 +22,7 @@ import java.util.List;
 /**
  * Created by Kyle on 10/1/2017.
  */
+@Slf4j
 @Service
 public class SearchSvc implements ISearchSvc {
 
@@ -44,7 +46,7 @@ public class SearchSvc implements ISearchSvc {
                         movie.getString("overview"), movie.getDouble("vote_average"), movie.getInt("vote_count")));
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("Error in SearchSvc - getMovies()", e);
         }
         return movies;
     }

@@ -1,5 +1,7 @@
 package qcryptic.sphin.vo;
 
+import lombok.Getter;
+import lombok.Setter;
 import qcryptic.sphin.enums.Endpoints;
 
 /**
@@ -7,14 +9,14 @@ import qcryptic.sphin.enums.Endpoints;
  */
 public class MovieSearchResultVo {
 
-    private String title;
-    private Long id;
-    private String posterUrl;
-    private String year;
-    private String overview;
-    private Double rating;
-    private Integer voteCount;
-    private String[] genres;
+    private @Getter @Setter String title;
+    private @Getter @Setter Long id;
+    private @Getter String posterUrl;
+    private @Getter @Setter String year;
+    private @Getter @Setter String overview;
+    private @Getter @Setter Double rating;
+    private @Getter @Setter Integer voteCount;
+    private @Getter @Setter String[] genres;
 
     public MovieSearchResultVo(String title, Long id, String posterUrl, String year, String overview, Double rating, Integer voteCount) {
         this.title = title;
@@ -29,26 +31,6 @@ public class MovieSearchResultVo {
         this.voteCount = voteCount;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getPosterUrl() {
-        return posterUrl;
-    }
-
     public void setPosterUrl(String posterUrl) {
         if ("none".equals(posterUrl))
             this.posterUrl = "/img/default_poster.png";
@@ -56,43 +38,4 @@ public class MovieSearchResultVo {
             this.posterUrl = Endpoints.TMDB_PICTURES.getUrl() + posterUrl;
     }
 
-    public String getYear() {
-        return year;
-    }
-
-    public void setYear(String year) {
-        this.year = year;
-    }
-
-    public String getOverview() {
-        return overview;
-    }
-
-    public void setOverview(String overview) {
-        this.overview = overview;
-    }
-
-    public Double getRating() {
-        return rating;
-    }
-
-    public void setRating(Double rating) {
-        this.rating = rating;
-    }
-
-    public Integer getVoteCount() {
-        return voteCount;
-    }
-
-    public void setVoteCount(Integer voteCount) {
-        this.voteCount = voteCount;
-    }
-
-    public String[] getGenres() {
-        return genres;
-    }
-
-    public void setGenres(String[] genreIds) {
-        this.genres = genreIds;
-    }
 }

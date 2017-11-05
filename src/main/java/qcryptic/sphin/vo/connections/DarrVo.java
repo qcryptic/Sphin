@@ -1,5 +1,8 @@
 package qcryptic.sphin.vo.connections;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.Map;
 
 /**
@@ -7,12 +10,12 @@ import java.util.Map;
  */
 public class DarrVo {
 
-    private String url;
-    private String api;
-    private Integer pathId;
-    private Integer profileId;
-    private Map<Integer,String> profiles;
-    private Map<Integer,String> paths;
+    private @Getter @Setter String url;
+    private @Getter @Setter String api;
+    private @Getter Integer pathId;
+    private @Getter Integer profileId;
+    private @Getter @Setter Map<Integer,String> profiles;
+    private @Getter @Setter Map<Integer,String> paths;
 
     public DarrVo(String url, String api, Integer pathId, Integer profileId) {
         this.url = url;
@@ -38,26 +41,6 @@ public class DarrVo {
             this.profileId = -1;
     }
 
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public String getApi() {
-        return api;
-    }
-
-    public void setApi(String api) {
-        this.api = api;
-    }
-
-    public Integer getPathId() {
-        return pathId;
-    }
-
     public void setPathId(Integer pathId) {
         if (pathId == null)
             this.pathId = -1;
@@ -65,31 +48,11 @@ public class DarrVo {
             this.pathId = pathId;
     }
 
-    public Integer getProfileId() {
-        return profileId;
-    }
-
     public void setProfileId(Integer profileId) {
         if (profileId == null)
             this.profileId = -1;
         else
             this.profileId = profileId;
-    }
-
-    public Map<Integer, String> getProfiles() {
-        return profiles;
-    }
-
-    public void setProfiles(Map<Integer, String> profiles) {
-        this.profiles = profiles;
-    }
-
-    public Map<Integer, String> getPaths() {
-        return paths;
-    }
-
-    public void setPaths(Map<Integer, String> paths) {
-        this.paths = paths;
     }
 
     public String getJsonString() {

@@ -1,31 +1,16 @@
 package qcryptic.sphin.vo;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
 /**
  * Created by Kyle on 10/1/2017.
  */
+@Data
+@AllArgsConstructor
 public class TvSearchResultVo {
 
     private String name;
     private Long id;
 
-    public TvSearchResultVo(String name, Long id) {
-        this.name = name;
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 }
