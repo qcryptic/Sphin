@@ -22,36 +22,6 @@ public class SphinUtils {
 
     final private static String path = System.getProperty("user.home") + File.separator + "Sphin" + File.separator + "sphin.properties";
 
-    public static JSONArray readJsonArray(InputStream input) {
-        try {
-            BufferedReader in = new BufferedReader(new InputStreamReader(input, StandardCharsets.UTF_8));
-            String line;
-            StringBuilder responseStrBuilder = new StringBuilder();
-            while((line =  in.readLine()) != null)
-                responseStrBuilder.append(line);
-            in.close();
-            return new JSONArray(responseStrBuilder.toString());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public static JSONObject readJson(InputStream input) {
-        try {
-            BufferedReader in = new BufferedReader(new InputStreamReader(input, StandardCharsets.UTF_8));
-            String line;
-            StringBuilder responseStrBuilder = new StringBuilder();
-            while((line =  in.readLine()) != null)
-                responseStrBuilder.append(line);
-            in.close();
-            return new JSONObject(responseStrBuilder.toString());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
     public static void updateProperty(String name, String value) {
         try {
             //Create (if needed) and Open file

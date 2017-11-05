@@ -4,9 +4,11 @@ import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 import qcryptic.sphin.enums.Endpoints;
 import qcryptic.sphin.service.ISearchSvc;
 import qcryptic.sphin.utils.SphinUtils;
+import qcryptic.sphin.vo.DbResponseVo;
 import qcryptic.sphin.vo.MovieSearchResultVo;
 import qcryptic.sphin.vo.TvSearchResultVo;
 
@@ -25,14 +27,10 @@ public class SearchSvc implements ISearchSvc {
     @Override
     public List<MovieSearchResultVo> getMovies(String query) {
         ArrayList<MovieSearchResultVo> movies = new ArrayList<>();
-        query = query.replaceAll(" ", "%20");
+        String urlString = Endpoints.TMDB_SEARCH.getUrl("317e36b902ac8fdb2529eb94ae93ecd3") + query;
+        RestTemplate rt = new RestTemplate();
         try {
-            String urlString = Endpoints.TMDB_SEARCH.getUrl("317e36b902ac8fdb2529eb94ae93ecd3") + query;
-            URL url = new URL(urlString);
-            HttpURLConnection con = (HttpURLConnection) url.openConnection();
-            con.setRequestProperty("Accept-Charset", "ISO-8859-1");
-            con.setRequestMethod("GET");
-            JSONObject json = SphinUtils.readJson(con.getInputStream());
+            JSONObject json = new JSONObject(rt.getForObject(urlString, String.class));
             JSONArray moviesJson = json.getJSONArray("results");
             for (int i = 0; i < moviesJson.length(); i++) {
                 JSONObject movie = moviesJson.getJSONObject(i);
@@ -45,7 +43,7 @@ public class SearchSvc implements ISearchSvc {
                 movies.add(new MovieSearchResultVo(movie.getString("title"), movie.getLong("id"), poster, year,
                         movie.getString("overview"), movie.getDouble("vote_average"), movie.getInt("vote_count")));
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return movies;
@@ -56,4 +54,8 @@ public class SearchSvc implements ISearchSvc {
         return null;
     }
 
+    @Override
+    public DbResponseVo addMovie(Integer tmdbId) {
+        return new DbResponseVo(true, "hitting the svc");
+    }
 }

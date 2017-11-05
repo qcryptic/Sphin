@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import qcryptic.sphin.service.ISearchSvc;
+import qcryptic.sphin.vo.DbResponseVo;
 import qcryptic.sphin.vo.MovieSearchResultVo;
 import qcryptic.sphin.vo.TvSearchResultVo;
 
@@ -38,6 +39,12 @@ public class SearchCrtl {
     @PostMapping("/tv")
     public List<TvSearchResultVo> searchTv(@RequestBody String query) {
         return searchSvc.getTv(query);
+    }
+
+    @ResponseBody
+    @PostMapping("/addMovie")
+    public DbResponseVo addMovie(@RequestParam("tmdbId") Integer tmdbId) {
+        return searchSvc.addMovie(tmdbId);
     }
 
 }

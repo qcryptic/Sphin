@@ -81,7 +81,7 @@ function addSearchItem(item, addBar) {
                 '<p class="search-overview">'+item.overview+'</p>'+
             '</div>'+
             '<div class="col-md-3 col-xl-2 col-xxxl-1 request-button-div">'+
-                '<button type="button" class="btn type-button">Request</button>'+
+                '<button type="button" class="btn type-button" onclick="addItem('+item.id+')">Request</button>'+
             '</div>'+
         '</div>'
     if (addBar)
@@ -108,4 +108,9 @@ function addSearchItemMobile(item, addBar) {
     if (addBar)
         addHtml = '<hr class="search-hr" />' + addHtml;
     $('#search-results-placeholder-mobile').append(addHtml);
+}
+
+function addItem(id) {
+    var url = (isMovieSelected()) ? "/addMovie" : "/addTv";
+    postRequest(window.location.href + url, {'tmdbId':id}, function (response) { alert(response.message) }, function (xhr) { console.log(xhr); });
 }

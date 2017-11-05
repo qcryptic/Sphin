@@ -1,5 +1,6 @@
 package qcryptic.sphin.service;
 
+import qcryptic.sphin.vo.DbResponseVo;
 import qcryptic.sphin.vo.MovieSearchResultVo;
 import qcryptic.sphin.vo.TvSearchResultVo;
 
@@ -21,5 +22,7 @@ public interface ISearchSvc {
      * @return
      */
     List<TvSearchResultVo> getTv(String query);
+
+    DbResponseVo addMovie(Integer tmdbId);
 
 }
