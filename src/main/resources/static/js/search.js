@@ -15,6 +15,7 @@ function mediaSelected(id) {
     $('#'+otherId).removeClass('type-button-selected').addClass('type-button');
     hideResultsContainer();
     $("#search-input").val('');
+    $("#search-input").focus();
 }
 
 function isMovieSelected() {

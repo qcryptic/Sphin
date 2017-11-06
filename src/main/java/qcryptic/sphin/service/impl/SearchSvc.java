@@ -51,6 +51,7 @@ public class SearchSvc implements ISearchSvc {
                 if ("http://image.tmdb.org/t/p/original".equals(poster))
                     poster = "none";
                 poster = poster.replace("/t/p/original", "/t/p/w185");
+                poster = poster.replace("http:", "https:");
                 JSONObject ratings = movie.getJSONObject("ratings");
                 Long id = movie.getLong("tmdbId");
                 movies.add(new SearchResultVo(movie.getString("title"), id, poster, movie.getInt("year"), movie.getString("overview"),
@@ -84,6 +85,7 @@ public class SearchSvc implements ISearchSvc {
             for (int i = 0; i < showsJson.length(); i++) {
                 JSONObject show = showsJson.getJSONObject(i);
                 String poster = (show.has("remotePoster")) ? show.getString("remotePoster") : "none";
+                poster = poster.replace("http:", "https:");
                 String overview = (show.has("overview")) ? show.getString("overview") : "No summary found.";
                 Integer year = (show.has("year")) ? show.getInt("year") : 0;
                 Long id = show.getLong("tvdbId");
