@@ -1,8 +1,7 @@
 package qcryptic.sphin.service;
 
 import qcryptic.sphin.vo.DbResponseVo;
-import qcryptic.sphin.vo.MovieSearchResultVo;
-import qcryptic.sphin.vo.TvSearchResultVo;
+import qcryptic.sphin.vo.SearchResultVo;
 
 import java.util.List;
 
@@ -15,14 +14,16 @@ public interface ISearchSvc {
      *
      * @return
      */
-    List<MovieSearchResultVo> getMovies(String query);
+    List<SearchResultVo> getMovies(String query);
 
     /**
      *
      * @return
      */
-    List<TvSearchResultVo> getTv(String query);
+    List<SearchResultVo> getTv(String query);
 
     DbResponseVo addMovie(Integer tmdbId);
+
+    DbResponseVo addTv(Integer tvdbId);
 
 }

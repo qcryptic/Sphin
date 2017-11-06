@@ -39,7 +39,7 @@ public class ConnectionsDao implements IConnectionsDao {
         try {
             return jdbcTemplate.queryForObject(getActiveConnection, String.class, new Object[]{type});
         } catch (EmptyResultDataAccessException e) {
-            return "Select...";
+            return "none";
         }
     }
 

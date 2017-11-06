@@ -5,9 +5,11 @@ package qcryptic.sphin.enums;
  */
 public enum Endpoints {
 
-    TMDB_GENRES("https://api.themoviedb.org/3/genre/movie/list?api_key=<<key>>&language=en-US"),
-    TMDB_SEARCH("https://api.themoviedb.org/3/search/movie?api_key=<<key>>&language=en-US&include_adult=false&query="),
-    TMDB_PICTURES("https://image.tmdb.org/t/p/w185"),
+    TVDB_INFO("https://www.thetvdb.com/?tab=series&id="),
+    TMDB_INFO("https://www.themoviedb.org/movie/"),
+
+    RADARR_SEARCH("/api/movies/lookup?APIKEY=<<key>>&term="),
+    SONARR_SEARCH("/api/series/lookup?APIKEY=<<key>>&term="),
 
     DARR_ROOTFOLDER("/api/rootfolder?APIKEY=<<key>>"),
     DARR_PROFILES("/api/profile?APIKEY=<<key>>");
