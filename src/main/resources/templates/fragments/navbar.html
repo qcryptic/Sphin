@@ -16,17 +16,22 @@
                     <a class="nav-link" th:classappend="${pageName == 'search'} ? 'nav-selected' : ''" th:href="@{/search}">Search</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" th:classappend="${pageName == 'history'} ? 'nav-selected' : ''" th:href="@{/history}">History</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" th:classappend="${pageName == 'downloads'} ? 'nav-selected' : ''" th:href="@{/downloads}">Downloads</a>
                 </li>
-                <li class="nav-item dropdown" id="settings-button" onmouseenter="settingsMouseOver()" onmouseleave="settingsMouseOut()" th:onclick="'settingsClick(\''+@{/settings/about}+'\')'">
-                    <a class="nav-link dropdown-toggle" th:classappend="${pageName == 'settings'} ? 'nav-selected' : ''" th:href="@{/settings}" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <li class="nav-item dropdown" id="settings-button" onmouseenter="settingsMouseOver()" onmouseleave="settingsMouseOut()">
+                    <a class="nav-link dropdown-toggle pointer" th:classappend="${pageName == 'settings'} ? 'nav-selected' : ''" th:onclick="'settingsClick(\''+@{/settings/about}+'\')'" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fa fa-lg fa-cogs"></i>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right settings-dropdown" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item settings-dropdown-item" href="#">Settings</a>
-                        <a class="dropdown-item settings-dropdown-item" href="#">Another action</a>
+                        <a class="dropdown-item settings-dropdown-item" th:onclick="'settingsClick(\''+@{/settings/about}+'\')'">About</a>
+                        <a class="dropdown-item settings-dropdown-item" th:onclick="'settingsClick(\''+@{/settings/network}+'\')'">Network Settings</a>
+                        <a class="dropdown-item settings-dropdown-item" th:onclick="'settingsClick(\''+@{/settings/connections}+'\')'">Connection Settings</a>
+                        <a class="dropdown-item settings-dropdown-item" th:onclick="'settingsClick(\''+@{/settings/users}+'\')'">User Settings</a>
                         <div class="dropdown-divider settings-dropdown-divider"></div>
-                        <a class="dropdown-item settings-dropdown-item" href="#">Something else here</a>
+                        <a class="dropdown-item settings-dropdown-item" href="#">Logout</a>
                     </div>
                 </li>
             </ul>

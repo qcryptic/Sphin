@@ -13,6 +13,8 @@ function mediaSelected(id) {
     }
     $('#'+id).addClass('type-button-selected').removeClass('type-button');
     $('#'+otherId).removeClass('type-button-selected').addClass('type-button');
+    hideResultsContainer();
+    $("#search-input").val('');
 }
 
 function isMovieSelected() {
@@ -38,6 +40,7 @@ function showResultsContainer() {
 }
 
 function getSearchResults() {
+    doLoadButton('main-search-btn');
     hideResultsContainer();
     $('#search-results-placeholder').html('');
     $('#search-results-placeholder-mobile').html('');
@@ -47,16 +50,26 @@ function getSearchResults() {
         showSearchMessage("Search cannot be empty");
         return;
     }
-    var url = window.location.href;
-    url += (isMovieSelected()) ? "/movie" : "/tv";
-    postRequest(url, {'query':query}, function (response) { addSearchItems(response); }, function (xhr) { console.log(xhr); });
+    var url = (isMovieSelected()) ? "/movie" : "/tv";
+    postRequest(window.location.href + url, {'query':query},
+        function (response) {
+            if (response.length < 1)
+                showSearchMessage('No results found');
+            else if (response[0].title === 'badrequest')
+                showSearchMessage(response[0].overview);
+            else
+                addSearchItems(response);
+            doNormalButton('main-search-btn','Search');
+        },
+        function (xhr) {
+            console.log(xhr);
+            doNormalButton('main-search-btn','Search');
+            showSearchMessage('Error searching, error code: '+xhr.status);
+        }
+    );
 }
 
 function addSearchItems(items) {
-    if (items.length < 1) {
-        showSearchMessage('No results found');
-        return;
-    }
     showResultsContainer();
     addSearchItem(items[0], false);
     addSearchItemMobile(items[0], false);
@@ -67,13 +80,14 @@ function addSearchItems(items) {
 }
 
 function addSearchItem(item, addBar) {
+    var addMethod = (isMovieSelected()) ? 'addMovie('+item.id+')' : 'addTv('+item.id+')';
     var year = '';
-    if (item.year)
+    if (item.year !== 0)
         year = 'Year: '+item.year + ' - ';
     var addHtml =
         '<div class="row search-result-row">'+
             '<div class="col-md-3 col-xl-2 col-xxxl-1 align-center">'+
-                '<img src="'+item.posterUrl+'" class="search-picture"/>'+
+                '<img src="'+item.posterUrl+'" class="search-picture pointer" onclick="window.open(\''+item.infoUrl+'\', \'_blank\')"/>'+
             '</div>'+
             '<div class="col-md-6 col-xl-8 col-xxxl-10" style="height: 225px;">'+
                 '<h3 class="search-title">'+item.title+'</h3>'+
@@ -81,9 +95,9 @@ function addSearchItem(item, addBar) {
                 '<p class="search-overview">'+item.overview+'</p>'+
             '</div>'+
             '<div class="col-md-3 col-xl-2 col-xxxl-1 request-button-div">'+
-                '<button type="button" class="btn type-button">Request</button>'+
+                '<button type="button" class="btn type-button" onclick="'+addMethod+'">Request</button>'+
             '</div>'+
-        '</div>'
+        '</div>';
     if (addBar)
         addHtml = '<hr class="search-hr" />' + addHtml;
     $('#search-results-placeholder').append(addHtml);
@@ -108,4 +122,12 @@ function addSearchItemMobile(item, addBar) {
     if (addBar)
         addHtml = '<hr class="search-hr" />' + addHtml;
     $('#search-results-placeholder-mobile').append(addHtml);
+}
+
+function addMovie(id) {
+    postRequest(window.location.href + "/addMovie", {'tmdbId':id}, function (response) { alert(response.message) }, function (xhr) { console.log(xhr); });
+}
+
+function addTv(id) {
+    postRequest(window.location.href + "/addTv", {'tvdbId':id}, function (response) { alert(response.message) }, function (xhr) { console.log(xhr); });
 }

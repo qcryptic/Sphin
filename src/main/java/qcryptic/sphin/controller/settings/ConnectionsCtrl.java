@@ -25,9 +25,12 @@ public class ConnectionsCtrl {
     @GetMapping
     public String connections(Model model) {
         model = defaultModelAdds(model, SettingsEnum.CONNECTIONS);
-        model.addAttribute("movieManager", connectionsSvc.getActiveConnection("movie"));
-        model.addAttribute("tvManager", connectionsSvc.getActiveConnection("tv"));
-        model.addAttribute("downloader", connectionsSvc.getActiveConnection("downloader"));
+        String activeMovieManager = connectionsSvc.getActiveConnection("movie");
+        String activeTvManager = connectionsSvc.getActiveConnection("tv");
+        String activeDownloader = connectionsSvc.getActiveConnection("downloader");
+        model.addAttribute("movieManager", ("none".equals(activeMovieManager) ? "Select..." : activeMovieManager));
+        model.addAttribute("tvManager", ("none".equals(activeTvManager) ? "Select..." : activeTvManager));
+        model.addAttribute("downloader", ("none".equals(activeDownloader) ? "Select..." : activeDownloader));
         model.addAttribute("radarr", connectionsSvc.getDarrInfo("radarr"));
         model.addAttribute("sonarr", connectionsSvc.getDarrInfo("sonarr"));
         return "pages/settings";

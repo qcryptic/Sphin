@@ -119,11 +119,12 @@ main::-webkit-scrollbar-thumb {
 }
 .settings-dropdown-item {
     background: #282828;
-    color: rgba(255,255,255,.7);
+    color: rgba(255,255,255,.7)!important;
 }
 .settings-dropdown-item:hover {
     background: #2f2f2f;
-    color: rgba(255,255,255,1);
+    color: rgba(255,255,255,1)!important;
+    cursor: pointer!important;
 }
 .settings-dropdown-divider {
     background-color: rgba(255,255,255,.5);
@@ -192,6 +193,9 @@ main::-webkit-scrollbar-thumb {
 .downloaded-button:hover {
     opacity: 1;
 }
+.pointer {
+    cursor: pointer;
+}
 .results-container {
     background-color: #282828;
     height: 100%;
@@ -202,6 +206,7 @@ main::-webkit-scrollbar-thumb {
 }
 .search-bar-div {
     padding-right: 0;
+    padding-left: 0;
 }
 .search-bar {
     border-radius: .25rem 0 0 .25rem;
@@ -221,6 +226,7 @@ main::-webkit-scrollbar-thumb {
     border-color: #f9be03;
 }
 .search-btn-div {
+    padding-right: 0;
     padding-left: 0;
 }
 .search-btn {
