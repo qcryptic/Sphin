@@ -5,7 +5,7 @@
 
 	<groupId>qcryptic.sphin</groupId>
 	<artifactId>sphin</artifactId>
-	<version>0.0.2</version>
+	<version>0.0.3</version>
 	<packaging>jar</packaging>
 
 	<name>sphin</name>
@@ -22,6 +22,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
+		<releaseDate>November 5, 2017</releaseDate>
 	</properties>
 
 	<dependencies>
