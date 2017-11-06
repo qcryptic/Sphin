@@ -2,6 +2,7 @@ package qcryptic.sphin.vo;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Value;
 import qcryptic.sphin.enums.Endpoints;
 
 /**

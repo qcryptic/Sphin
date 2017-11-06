@@ -85,6 +85,8 @@ function addSearchItem(item, addBar) {
     var year = '';
     if (item.year !== 0)
         year = 'Year: '+item.year + ' - ';
+    if (item.posterUrl === '/img/default_poster.png')
+        item.posterUrl = window.location.href.replace("/search", item.posterUrl);
     var addHtml =
         '<div class="row search-result-row">'+
             '<div class="col-md-3 col-xl-2 col-xxxl-1 align-center">'+
