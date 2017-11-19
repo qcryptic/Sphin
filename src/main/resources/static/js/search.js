@@ -18,6 +18,10 @@ function mediaSelected(id) {
     $("#search-input").focus();
 }
 
+window.onload = function() {
+    $("#search-input").focus();
+};
+
 function isMovieSelected() {
     return $('#movie-btn').hasClass('type-button-selected');
 }
@@ -81,7 +85,9 @@ function addSearchItems(items) {
 }
 
 function addSearchItem(item, addBar) {
-    var addMethod = (isMovieSelected()) ? 'addMovie('+item.id+')' : 'addTv('+item.id+')';
+    var addMethod = (isMovieSelected())
+        ? 'addMovie('+item.id+',\''+item.title+'\',\''+item.titleSlug+'\',\''+item.path+'\',\''+item.images.replace(/"/g , "`%`")+'\','+item.profileId+')'
+        : 'addTv('+item.id+')';
     var year = '';
     if (item.year !== 0)
         year = 'Year: '+item.year + ' - ';
@@ -127,8 +133,11 @@ function addSearchItemMobile(item, addBar) {
     $('#search-results-placeholder-mobile').append(addHtml);
 }
 
-function addMovie(id) {
-    postRequest(window.location.href + "/addMovie", {'tmdbId':id}, function (response) { alert(response.message) }, function (xhr) { console.log(xhr); });
+function addMovie(id, title, titleSlug, path, images, profileId) {
+    postRequest(window.location.href + "/addMovie",
+        {'tmdbId':id, 'title':title, 'titleSlug':titleSlug, 'path':path, 'images':images.replace(/`%`/g , "\""), 'profileId':profileId},
+        function (response) { alert(response.message) },
+        function (xhr) { console.log(xhr); });
 }
 
 function addTv(id) {

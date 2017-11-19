@@ -143,7 +143,7 @@ function updateDarr(type, name) {
     var btn = type+'-man-save';
     postRequest(
         window.location.href+"/update-"+name,
-        {url:$('#'+name+'-url').val(),api:$('#'+name+'-api').val(),pathId:$('#'+name+'-path').val(),profileId:$('#'+name+'-profile').val()},
+        {url:$('#'+name+'-url').val(),api:$('#'+name+'-api').val(),pathId:$('#'+name+'-path').val(),profileId:$('#'+name+'-profile').val(),pathName:$('#'+name+'-path option:selected').text()},
         function (response) {
             if (response.result)
                 doSuccessButton(btn, false, 'Saved');

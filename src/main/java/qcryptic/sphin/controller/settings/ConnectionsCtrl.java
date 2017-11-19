@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import qcryptic.sphin.enums.ConnectionTypes;
+import qcryptic.sphin.enums.Connections;
 import qcryptic.sphin.enums.SettingsEnum;
 import qcryptic.sphin.service.IConnectionsSvc;
 import qcryptic.sphin.vo.DbResponseVo;
@@ -25,14 +27,14 @@ public class ConnectionsCtrl {
     @GetMapping
     public String connections(Model model) {
         model = defaultModelAdds(model, SettingsEnum.CONNECTIONS);
-        String activeMovieManager = connectionsSvc.getActiveConnection("movie");
-        String activeTvManager = connectionsSvc.getActiveConnection("tv");
-        String activeDownloader = connectionsSvc.getActiveConnection("downloader");
+        String activeMovieManager = connectionsSvc.getActiveConnection(ConnectionTypes.MOVIE).getName();
+        String activeTvManager = connectionsSvc.getActiveConnection(ConnectionTypes.TV).getName();
+        String activeDownloader = connectionsSvc.getActiveConnection(ConnectionTypes.DOWNLOADER).getName();
         model.addAttribute("movieManager", ("none".equals(activeMovieManager) ? "Select..." : activeMovieManager));
         model.addAttribute("tvManager", ("none".equals(activeTvManager) ? "Select..." : activeTvManager));
         model.addAttribute("downloader", ("none".equals(activeDownloader) ? "Select..." : activeDownloader));
-        model.addAttribute("radarr", connectionsSvc.getDarrInfo("radarr"));
-        model.addAttribute("sonarr", connectionsSvc.getDarrInfo("sonarr"));
+        model.addAttribute("radarr", connectionsSvc.getDarrInfo(Connections.RADARR));
+        model.addAttribute("sonarr", connectionsSvc.getDarrInfo(Connections.SONARR));
         return "pages/settings";
     }
 
@@ -44,16 +46,16 @@ public class ConnectionsCtrl {
 
     @ResponseBody
     @PostMapping("/update-radarr")
-    public DbResponseVo updateRadarr(@RequestParam("url") String url, @RequestParam("api") String api,
+    public DbResponseVo updateRadarr(@RequestParam("url") String url, @RequestParam("api") String api, @RequestParam("pathName") String pathName,
                                      @RequestParam("profileId") Integer profileId, @RequestParam("pathId") Integer pathId) {
-        return connectionsSvc.updateConnection("radarr", "movie", new DarrVo(url, api, pathId, profileId));
+        return connectionsSvc.updateConnection(Connections.RADARR, ConnectionTypes.MOVIE, new DarrVo(url, api, pathId, profileId, pathName));
     }
 
     @ResponseBody
     @PostMapping("/update-sonarr")
-    public DbResponseVo updateSonarr(@RequestParam("url") String url, @RequestParam("api") String api,
+    public DbResponseVo updateSonarr(@RequestParam("url") String url, @RequestParam("api") String api, @RequestParam("pathName") String pathName,
                                      @RequestParam("profileId") Integer profileId, @RequestParam("pathId") Integer pathId) {
-        return connectionsSvc.updateConnection("sonarr", "tv", new DarrVo(url, api, pathId, profileId));
+        return connectionsSvc.updateConnection(Connections.SONARR, ConnectionTypes.TV, new DarrVo(url, api, pathId, profileId, pathName));
     }
 
 }

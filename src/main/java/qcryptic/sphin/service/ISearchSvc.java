@@ -1,5 +1,6 @@
 package qcryptic.sphin.service;
 
+import org.json.JSONArray;
 import qcryptic.sphin.vo.DbResponseVo;
 import qcryptic.sphin.vo.SearchResultVo;
 
@@ -10,20 +11,12 @@ import java.util.List;
  */
 public interface ISearchSvc {
 
-    /**
-     *
-     * @return
-     */
-    List<SearchResultVo> getMovies(String query);
+    List<SearchResultVo> getMoviesRadarr(String query);
 
-    /**
-     *
-     * @return
-     */
-    List<SearchResultVo> getTv(String query);
+    List<SearchResultVo> getTvSonarr(String query);
 
-    DbResponseVo addMovie(Integer tmdbId);
+    DbResponseVo addMovieRadarr(Integer tmdbId, String title, String titleSlug, Integer profileId, String path, JSONArray images);
 
-    DbResponseVo addTv(Integer tvdbId);
+    DbResponseVo addTvSonarr(Integer tvdbId);
 
 }

@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import qcryptic.sphin.dao.IConnectionsDao;
+import qcryptic.sphin.enums.ConnectionTypes;
+import qcryptic.sphin.enums.Connections;
 import qcryptic.sphin.enums.Endpoints;
 import qcryptic.sphin.service.IConnectionsSvc;
 import qcryptic.sphin.utils.SphinUtils;
@@ -32,7 +34,7 @@ public class ConnectionsSvc implements IConnectionsSvc {
     private IConnectionsDao connectionsDao;
 
     @Override
-    public DbResponseVo updateConnection(String connectionName, String connectionType, String json) {
+    public DbResponseVo updateConnection(Connections connectionName, ConnectionTypes connectionType, String json) {
         boolean isSuccessful = connectionsDao.updateConnection(connectionName, connectionType, json);
         if (!isSuccessful)
             return new DbResponseVo(false, "Error updating connection info");
@@ -41,7 +43,7 @@ public class ConnectionsSvc implements IConnectionsSvc {
     }
 
     @Override
-    public DbResponseVo updateConnection(String connectionName, String connectionType, DarrVo darrVo) {
+    public DbResponseVo updateConnection(Connections connectionName, ConnectionTypes connectionType, DarrVo darrVo) {
         HttpResponseVo status = SphinUtils.getHttpStatus(darrVo.getUrl() + Endpoints.DARR_ROOTFOLDER.getUrl(darrVo.getApi()));
         if (status.getCode() != 200)
             return new DbResponseVo(false, "Connection check failed! Use the test connection button");
@@ -53,7 +55,7 @@ public class ConnectionsSvc implements IConnectionsSvc {
     }
 
     @Override
-    public String getActiveConnection(String connectionType) {
+    public Connections getActiveConnection(ConnectionTypes connectionType) {
         return connectionsDao.getActiveConnection(connectionType);
     }
 
@@ -73,7 +75,7 @@ public class ConnectionsSvc implements IConnectionsSvc {
     }
 
     @Override
-    public DarrVo getDarrInfo(String type) throws JSONException {
+    public DarrVo getDarrInfo(Connections type) throws JSONException {
         Map<Integer, String> paths = new HashMap<>();
         Map<Integer, String> profiles = new HashMap<>();
         String json = connectionsDao.getConnectionJson(type);

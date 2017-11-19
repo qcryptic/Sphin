@@ -14,6 +14,7 @@ public class DarrVo {
     private @Getter @Setter String api;
     private @Getter Integer pathId;
     private @Getter Integer profileId;
+    private @Getter @Setter String pathName;
     private @Getter @Setter Map<Integer,String> profiles;
     private @Getter @Setter Map<Integer,String> paths;
 
@@ -26,6 +27,20 @@ public class DarrVo {
             this.pathId = -1;
         if (this.profileId == null)
             this.profileId = -1;
+    }
+
+    public DarrVo(String url, String api, Integer pathId, Integer profileId, String pathName) {
+        this.url = url;
+        this.api = api;
+        this.pathId = pathId;
+        this.profileId = profileId;
+        this.pathName = pathName;
+        if (this.pathId == null)
+            this.pathId = -1;
+        if (this.profileId == null)
+            this.profileId = -1;
+        if (this.pathName == null)
+            this.pathName = "";
     }
 
     public DarrVo(String url, String api, Integer pathId, Integer profileId, Map<Integer, String> profiles, Map<Integer, String> paths) {
@@ -56,7 +71,7 @@ public class DarrVo {
     }
 
     public String getJsonString() {
-        return "{\"url\":\""+this.url+"\",\"api\":\""+this.api+"\",\"path\":"+this.pathId+",\"profile\":"+this.profileId+"}";
+        return "{\"url\":\""+this.url+"\",\"api\":\""+this.api+"\",\"path\":"+this.pathId+",\"profile\":"+this.profileId+",\"pathName\":\"" + this.pathName + "\"}";
     }
 
 }

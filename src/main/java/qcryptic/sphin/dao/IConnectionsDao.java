@@ -1,14 +1,17 @@
 package qcryptic.sphin.dao;
 
+import qcryptic.sphin.enums.ConnectionTypes;
+import qcryptic.sphin.enums.Connections;
+
 /**
  * Created by Kyle on 10/24/2017.
  */
 public interface IConnectionsDao {
 
-    boolean updateConnection(String connectionName, String connectionType, String json);
+    boolean updateConnection(Connections connectionName, ConnectionTypes connectionType, String json);
 
-    String getActiveConnection(String type);
+    Connections getActiveConnection(ConnectionTypes type);
 
-    String getConnectionJson(String connectionName);
+    String getConnectionJson(Connections connectionName);
 
 }

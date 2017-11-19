@@ -1,5 +1,7 @@
 package qcryptic.sphin.service;
 
+import qcryptic.sphin.enums.ConnectionTypes;
+import qcryptic.sphin.enums.Connections;
 import qcryptic.sphin.vo.DbResponseVo;
 import qcryptic.sphin.vo.connections.DarrVo;
 
@@ -8,14 +10,14 @@ import qcryptic.sphin.vo.connections.DarrVo;
  */
 public interface IConnectionsSvc {
 
-    DbResponseVo updateConnection(String connectionName, String connectionType, String json);
+    DbResponseVo updateConnection(Connections connectionName, ConnectionTypes connectionType, String json);
 
-    DbResponseVo updateConnection(String connectionName, String connectionType, DarrVo darrVo);
+    DbResponseVo updateConnection(Connections connectionName, ConnectionTypes connectionType, DarrVo darrVo);
 
-    String getActiveConnection(String connectionType);
+    Connections getActiveConnection(ConnectionTypes connectionType);
 
     DbResponseVo testDarr(String url, String api);
 
-    DarrVo getDarrInfo(String type);
+    DarrVo getDarrInfo(Connections type);
 
 }
