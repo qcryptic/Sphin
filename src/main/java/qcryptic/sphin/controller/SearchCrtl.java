@@ -79,11 +79,13 @@ public class SearchCrtl {
 
     @ResponseBody
     @PostMapping("/addTv")
-    public DbResponseVo addTv(@RequestParam("tvdbId") Integer tvdbId) {
+    public DbResponseVo addTv(@RequestParam("tvdbId") Integer tvdbId, @RequestParam("title") String title, @RequestParam("profileId") Integer profileId,
+                              @RequestParam("titleSlug") String titleSlug, @RequestParam("path") String path, @RequestParam("images") JSONArray images,
+                              @RequestParam("seasons") JSONArray seasons) {
         Connections activeMovieManager = connectionsDao.getActiveConnection(ConnectionTypes.TV);
         switch (activeMovieManager) {
             case SONARR:
-                return searchSvc.addTvSonarr(tvdbId);
+                return searchSvc.addTvSonarr(tvdbId, title, titleSlug, profileId, path, images, seasons);
             default:
                 return new DbResponseVo(false, "Error - no valid TV manager found, set one up in the connection settings");
         }

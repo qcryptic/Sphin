@@ -10,7 +10,6 @@ import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 import qcryptic.sphin.dao.IConnectionsDao;
-import qcryptic.sphin.enums.ConnectionTypes;
 import qcryptic.sphin.enums.Connections;
 import qcryptic.sphin.enums.Endpoints;
 import qcryptic.sphin.service.ISearchSvc;
@@ -83,11 +82,12 @@ public class SearchSvc implements ISearchSvc {
                 String poster = (show.has("remotePoster")) ? show.getString("remotePoster") : "none";
                 poster = poster.replace("http:", "https:");
                 String overview = (show.has("overview")) ? show.getString("overview") : "No summary found.";
-                Integer year = (show.has("year")) ? show.getInt("year") : 0;
                 Long id = show.getLong("tvdbId");
+                JSONArray images = show.getJSONArray("images");
+                JSONArray seasons = show.getJSONArray("seasons");
                 JSONObject ratings = show.getJSONObject("ratings");
-                shows.add(new SearchResultVo(show.getString("title"), id, poster, year, overview, ratings.getDouble("value"),
-                        ratings.getInt("votes"), Endpoints.TVDB_INFO.getUrl() + id));
+                shows.add(new SearchResultVo(show.getString("title"), id, poster, show.getInt("year"), overview, ratings.getDouble("value"), Endpoints.TVDB_INFO.getUrl() + id,
+                        sonarrInfo.getInt("profile"), show.getString("titleSlug"), sonarrInfo.getString("pathName"), images.toString(), seasons.toString()));
             }
         } catch (Exception e) {
             log.error("Error in SearchSvc - getTvSonarr()", e);
@@ -104,36 +104,66 @@ public class SearchSvc implements ISearchSvc {
         }
         JSONObject radarrInfo = new JSONObject(radarrJson);
         RestTemplate restTemplate = new RestTemplate();
-        JSONObject json = new JSONObject();
-        json.put("tmdbId", tmdbId);
-        json.put("title", title);
-        json.put("titleSlug", titleSlug);
-        json.put("profileId", profileId);
-        json.put("rootFolderPath", path);
-        json.put("images", images);
+        JSONObject body = new JSONObject();
+        body.put("tmdbId", tmdbId);
+        body.put("title", title);
+        body.put("titleSlug", titleSlug);
+        body.put("qualityProfileId", profileId);
+        body.put("rootFolderPath", path);
+        body.put("images", images);
         HttpHeaders headers = new HttpHeaders();
         headers.set("X-Api-Key", radarrInfo.getString("api"));
         headers.setContentType(MediaType.APPLICATION_JSON);
-        HttpEntity<String> entity = new HttpEntity<>(json.toString(),headers);
+        HttpEntity<String> entity = new HttpEntity<>(body.toString(),headers);
         try {
-            String answer = restTemplate.postForObject(radarrInfo.getString("url")+"/movie", entity, String.class);
+            String answer = restTemplate.postForObject(radarrInfo.getString("url")+"/api/movie", entity, String.class);
             return new DbResponseVo(true, answer);
         } catch (HttpStatusCodeException e) {
-            int err = e.getStatusCode().value();
-            e.getResponseBodyAsString();
-            if (err == 400)
-                return new DbResponseVo(false, e.getResponseBodyAsString());
-            else if (err == 401)
-                return new DbResponseVo(false, "Unauthorized! Make sure your API key is correct");
-            else
-                return new DbResponseVo(false, e.getMessage());
+            return httpStatusExemptionResponse(e);
         } catch (ResourceAccessException e) {
             return new DbResponseVo(false, "Invalid URL! Check your movie manager settings");
         }
     }
 
     @Override
-    public DbResponseVo addTvSonarr(Integer tvdbId) {
-        return new DbResponseVo(true, "hitting the svc TV");
+    public DbResponseVo addTvSonarr(Integer tvdbId, String title, String titleSlug, Integer profileId, String path, JSONArray images, JSONArray seasons) {
+        String radarrJson = connectionsDao.getConnectionJson(Connections.SONARR);
+        if ("none".equals(radarrJson)) {
+            return new DbResponseVo(false, "Error - no valid TV manager found, set one up in the connection settings");
+        }
+        JSONObject sonarrInfo = new JSONObject(radarrJson);
+        RestTemplate restTemplate = new RestTemplate();
+        JSONObject body = new JSONObject();
+        body.put("tvdbId", tvdbId);
+        body.put("title", title);
+        body.put("titleSlug", titleSlug);
+        body.put("qualityProfileId", profileId);
+        body.put("rootFolderPath", path);
+        body.put("images", images);
+        body.put("seasons", seasons);
+        //body.put("addOptions", new JSONObject().put("ignoreEpisodesWithFiles",true).put("ignoreEpisodesWithoutFiles",true).put("searchForMissingEpisodes",false));
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("X-Api-Key", sonarrInfo.getString("api"));
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<String> entity = new HttpEntity<>(body.toString(),headers);
+        try {
+            String answer = restTemplate.postForObject(sonarrInfo.getString("url")+"/api/series", entity, String.class);
+            return new DbResponseVo(true, answer);
+        } catch (HttpStatusCodeException e) {
+            return httpStatusExemptionResponse(e);
+        } catch (ResourceAccessException e) {
+            return new DbResponseVo(false, "Invalid URL! Check your TV manager settings");
+        }
     }
+
+    private DbResponseVo httpStatusExemptionResponse(HttpStatusCodeException e) {
+        int err = e.getStatusCode().value();
+        if (err == 400)
+            return new DbResponseVo(false, e.getResponseBodyAsString());
+        else if (err == 401)
+            return new DbResponseVo(false, "Unauthorized! Make sure your API key is correct");
+        else
+            return new DbResponseVo(false, e.getMessage());
+    }
+
 }

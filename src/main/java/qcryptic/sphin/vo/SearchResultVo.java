@@ -25,6 +25,7 @@ public class SearchResultVo {
     private @Getter @Setter String titleSlug;
     private @Getter @Setter String path;
     private @Getter @Setter String images;
+    private @Getter @Setter String seasons;
 
     public SearchResultVo(String error, String message) {
         this.title = error;
@@ -60,6 +61,24 @@ public class SearchResultVo {
         this.titleSlug = titleSlug;
         this.path = path;
         this.images = images;
+    }
+
+    public SearchResultVo(String title, Long id, String posterUrl, Integer year, String overview, Double rating, String infoUrl, Integer profileId, String titleSlug, String path, String images, String seasons) {
+        this.title = title;
+        this.id = id;
+        if ("none".equals(posterUrl))
+            this.posterUrl = "/img/default_poster.png";
+        else
+            this.posterUrl = posterUrl;
+        this.year = year;
+        this.overview = overview;
+        this.rating = rating;
+        this.infoUrl = infoUrl;
+        this.profileId = profileId;
+        this.titleSlug = titleSlug;
+        this.path = path;
+        this.images = images;
+        this.seasons = seasons;
     }
 
     public void setPosterUrl(String posterUrl) {

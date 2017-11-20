@@ -17,6 +17,6 @@ public interface ISearchSvc {
 
     DbResponseVo addMovieRadarr(Integer tmdbId, String title, String titleSlug, Integer profileId, String path, JSONArray images);
 
-    DbResponseVo addTvSonarr(Integer tvdbId);
+    DbResponseVo addTvSonarr(Integer tvdbId, String title, String titleSlug, Integer profileId, String path, JSONArray images, JSONArray seasons);
 
 }

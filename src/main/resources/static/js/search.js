@@ -87,7 +87,7 @@ function addSearchItems(items) {
 function addSearchItem(item, addBar) {
     var addMethod = (isMovieSelected())
         ? 'addMovie('+item.id+',\''+item.title+'\',\''+item.titleSlug+'\',\''+item.path+'\',\''+item.images.replace(/"/g , "`%`")+'\','+item.profileId+')'
-        : 'addTv('+item.id+')';
+        : 'addTv('+item.id+',\''+item.title+'\',\''+item.titleSlug+'\',\''+item.path+'\',\''+item.images.replace(/"/g , "`%`")+'\','+item.profileId+',\''+item.seasons.replace(/"/g , "`%`")+'\')';
     var year = '';
     if (item.year !== 0)
         year = 'Year: '+item.year + ' - ';
@@ -113,19 +113,24 @@ function addSearchItem(item, addBar) {
 }
 
 function addSearchItemMobile(item, addBar) {
+    var addMethod = (isMovieSelected())
+        ? 'addMovie('+item.id+',\''+item.title+'\',\''+item.titleSlug+'\',\''+item.path+'\',\''+item.images.replace(/"/g , "`%`")+'\','+item.profileId+')'
+        : 'addTv('+item.id+')';
     var title = item.title;
-    if (item.year)
+    if (item.year !== 0)
         title += ' ('+item.year+')';
+    if (item.posterUrl === '/img/default_poster.png')
+        item.posterUrl = window.location.href.replace("/search", item.posterUrl);
     var addHtml =
         '<div class="row">'+
             '<div class="col-12">'+
                 '<h4 class="search-title-mobile">'+title+'</h4>'+
             '</div>'+
             '<div class="col-6 search-picture-div-mobile">'+
-                '<img src="'+item.posterUrl+'" class="search-picture-mobile" />'+
+                '<img src="'+item.posterUrl+'" class="search-picture-mobile" onclick="window.open(\''+item.infoUrl+'\', \'_blank\')"/>'+
             '</div>'+
             '<div class="col-6 request-button-div-mobile">'+
-                '<button type="button" class="btn type-button">Request</button>'+
+                '<button type="button" class="btn type-button" onclick="'+addMethod+'">Request</button>'+
             '</div>'+
         '</div>';
     if (addBar)
@@ -137,9 +142,14 @@ function addMovie(id, title, titleSlug, path, images, profileId) {
     postRequest(window.location.href + "/addMovie",
         {'tmdbId':id, 'title':title, 'titleSlug':titleSlug, 'path':path, 'images':images.replace(/`%`/g , "\""), 'profileId':profileId},
         function (response) { alert(response.message) },
-        function (xhr) { console.log(xhr); });
+        function (xhr) { console.log(xhr); }
+    );
 }
 
-function addTv(id) {
-    postRequest(window.location.href + "/addTv", {'tvdbId':id}, function (response) { alert(response.message) }, function (xhr) { console.log(xhr); });
+function addTv(id, title, titleSlug, path, images, profileId, seasons) {
+    postRequest(window.location.href + "/addTv",
+        {'tvdbId':id, 'title':title, 'titleSlug':titleSlug, 'path':path, 'images':images.replace(/`%`/g , "\""), 'profileId':profileId, 'seasons':seasons.replace(/`%`/g , "\"")},
+        function (response) { alert(response.message) },
+        function (xhr) { console.log(xhr); }
+    );
 }
